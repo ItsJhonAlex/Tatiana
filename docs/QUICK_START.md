@@ -1,296 +1,247 @@
 # 🚀 Tatiana Bot 2.0 - Quick Start Guide
 
-## ⚡ Start Developing NOW!
+## 🎯 Overview
 
-Este guía te ayudará a empezar el desarrollo de Tatiana Bot 2.0 **inmediatamente** siguiendo el roadmap paso a paso.
+This quick start guide will help you set up and run Tatiana Bot 2.0 in development mode in less than 15 minutes.
 
-## 🎯 Primer Día - Setup Completo
+## 📋 Prerequisites
 
-### **📋 Pre-requisitos (15 minutos)**
+Before starting, make sure you have:
 
-1. **Verificar herramientas**:
+### Required Software
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- [Git](https://git-scm.com/) for version control
+- A code editor (VS Code recommended)
+
+### Discord Requirements
+- A Discord account and server for testing
+- A Discord application created in the [Discord Developer Portal](https://discord.com/developers/applications)
+- Bot token and client credentials
+
+### API Keys
+- [Google Gemini AI API Key](https://makersuite.google.com/app/apikey) for AI functionality
+
+## 🚀 Quick Setup (5 minutes)
+
+### 1. Clone the Repository
 ```bash
-# Verificar versiones
-python3 --version    # Necesitas 3.12+
-node --version       # Necesitas 18+
-docker --version     # Necesitas Docker
-pnpm --version      # Instalar si no tienes
-
-# Si no tienes pnpm:
-npm install -g pnpm
+git clone https://github.com/ItsJhonAlex/Tatiana.git
+cd Tatiana
 ```
 
-2. **Crear Bot en Discord** (5 min):
-   - Ve a: https://discord.com/developers/applications
-   - "New Application" → Nombre: "Tatiana Bot 2.0"
-   - Bot → "Add Bot" → Copy Token
-   - OAuth2 → URL Generator → Bot + applications.commands
-
-3. **Obtener API Key de Gemini** (5 min):
-   - Ve a: https://aistudio.google.com/app/apikey
-   - "Create API Key" → Copy
-
-### **🔧 Setup del Proyecto (30 minutos)**
-
+### 2. Environment Configuration
 ```bash
-# 1. Navegar al proyecto
-cd /home/itsjhonalex/Desarrollo/Proyectos/Tatiana
-
-# 2. Configurar Git
-git init
-git add .
-git commit -m "feat: initial project structure with complete documentation"
-
-# 3. Configurar entorno
+# Copy environment template
 cp .env.example .env
-# Editar .env con tus tokens (Discord, Gemini, etc.)
 
-# 4. Ejecutar setup automático
-chmod +x scripts/setup.sh
-./scripts/setup.sh
+# Edit the .env file with your credentials
+nano .env  # or code .env in VS Code
+```
 
-# 5. Probar Docker
-docker-compose up postgres redis -d
+**Required Environment Variables:**
+```env
+# Discord Configuration
+DISCORD_TOKEN=your_bot_token_here
+DISCORD_CLIENT_ID=your_client_id_here
+DISCORD_CLIENT_SECRET=your_client_secret_here
+
+# AI Configuration
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Security (generate strong secrets)
+JWT_SECRET=your_jwt_secret_here
+NEXTAUTH_SECRET=your_nextauth_secret_here
+```
+
+### 3. Start the Development Environment
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs (optional)
 docker-compose logs -f
 ```
 
-### **✅ Verificación (10 minutos)**
+### 4. Verify Installation
+Open these URLs in your browser:
+- **Dashboard**: http://localhost:3000
+- **API Documentation**: http://localhost:8000/docs
+- **API Health**: http://localhost:8000/health
 
-```bash
-# Verificar que todo funciona
-docker-compose ps                    # Debe mostrar containers Up
-docker exec tatiana-postgres pg_isready  # Debe mostrar "accepting connections"
-docker exec tatiana-redis redis-cli ping # Debe mostrar "PONG"
+## 🎮 First Steps
+
+### 1. Invite the Bot to Your Server
+1. Go to Discord Developer Portal
+2. Select your application → OAuth2 → URL Generator
+3. Select scopes: `bot`, `applications.commands`
+4. Select permissions: `Administrator` (for testing)
+5. Use the generated URL to invite the bot
+
+### 2. Test Basic Commands
+In your Discord server:
+```
+!ping                    # Test basic connectivity
+!help                    # View available commands
+!chat Hello Tatiana!     # Test AI integration
+!balance                 # Check economy system
 ```
 
-**🎉 ¡Si todo está verde, estás listo para el Día 2!**
+### 3. Access Web Dashboard
+1. Visit http://localhost:3000
+2. Click "Login with Discord"
+3. Authorize the application
+4. Explore server settings and statistics
 
----
+## 📁 Project Structure
 
-## 📅 Tu Plan de los Próximos 7 Días
-
-### **📋 Días 1-5: FASE 1 - Infraestructura**
-
-#### **Día 1** ✅ (Completado arriba)
-- [x] Setup del proyecto
-- [x] Docker funcionando
-- [x] Variables configuradas
-
-#### **Día 2** 🎯 (Siguiente)
-**Objetivo**: Base de datos funcionando
-```bash
-# Crear estructura bot
-mkdir -p bot/src/{config,core,cogs,services,models,utils}
-mkdir -p bot/tests
-
-# Instalar dependencias
-cd bot
-python -m venv venv
-source venv/bin/activate
-pip install discord.py asyncpg sqlalchemy alembic python-dotenv
-
-# Configurar Alembic
-alembic init migrations
+```
+Tatiana/
+├── api/                 # FastAPI backend service
+├── bot/                 # Discord bot service
+├── dashboard/           # Next.js frontend
+├── database/            # Database schemas and migrations
+├── docs/                # Complete documentation
+├── nginx/               # Reverse proxy configuration
+├── scripts/             # Utility scripts
+├── .env.example         # Environment template
+└── docker-compose.yml   # Development orchestration
 ```
 
-**Meta del día**: Base de datos con schema completo
+## 🔧 Development Commands
 
-#### **Día 3** 🎯
-**Objetivo**: Bot básico conectado
+### Container Management
 ```bash
-# Crear bot básico que se conecte a Discord
-# Implementar sistema de logging
-# Configuración desde .env
-```
-
-**Meta del día**: Ver bot online en Discord
-
-#### **Día 4** 🎯
-**Objetivo**: API básica funcionando
-```bash
-# Setup FastAPI
-# Health checks
-# JWT authentication básico
-```
-
-**Meta del día**: API responde en localhost:8000
-
-#### **Día 5** 🎯
-**Objetivo**: Testing configurado
-```bash
-# Configurar pytest
-# Crear primeros tests
-# Setup GitHub Actions
-```
-
-**Meta del día**: Tests corriendo y pasando
-
-### **📋 Días 6-7: Comandos Básicos**
-
-#### **Día 6** 🎯
-**Objetivo**: Sistema de comandos
-```bash
-# /ping command
-# /help command
-# Sistema de cooldowns
-```
-
-#### **Día 7** 🎯
-**Objetivo**: AI funcionando
-```bash
-# /chat command con Gemini
-# Sistema de personalidades
-# Context management
-```
-
----
-
-## 🛠️ Comandos Esenciales Diarios
-
-### **🌅 Inicio del día**:
-```bash
-cd /home/itsjhonalex/Desarrollo/Proyectos/Tatiana
-git pull origin main
+# Start all services
 docker-compose up -d
-docker-compose logs --tail=20
-```
 
-### **💻 Durante desarrollo**:
-```bash
-# Tests frecuentes
-cd bot && source venv/bin/activate && python -m pytest tests/ -v
-
-# Commit frecuente
-git add .
-git commit -m "feat(bot): implement [feature]"
-```
-
-### **🌙 Final del día**:
-```bash
-git push origin main
+# Stop all services
 docker-compose down
+
+# Restart specific service
+docker-compose restart bot
+
+# View service logs
+docker-compose logs -f bot
+docker-compose logs -f api
+docker-compose logs -f dashboard
 ```
 
-## 📝 Template de Commit Diario
-
+### Database Operations
 ```bash
-# Ejemplos de commits siguiendo convenciones:
-git commit -m "feat(bot): add ping command with latency display"
-git commit -m "feat(db): implement user and guild schema"
-git commit -m "fix(api): resolve JWT token validation issue"
-git commit -m "test(bot): add unit tests for command system"
-git commit -m "docs: update setup instructions"
+# Run migrations
+docker-compose exec api alembic upgrade head
+
+# Access PostgreSQL
+docker-compose exec postgres psql -U tatiana_user -d tatiana_db
+
+# Backup database
+docker-compose exec postgres pg_dump -U tatiana_user tatiana_db > backup.sql
 ```
 
-## 🚨 Solución Rápida de Problemas
-
-### **Docker no funciona**:
+### Development Mode
 ```bash
-# Limpiar y reiniciar
-docker-compose down -v
-docker system prune -f
-docker-compose up -d
+# Enable hot reload for all services
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+# View development logs
+docker-compose logs -f --tail=100
 ```
 
-### **Bot no se conecta**:
+## 🛠️ Common Issues & Solutions
+
+### Bot Not Responding
+1. Check bot token is correct
+2. Verify bot has necessary permissions
+3. Check logs: `docker-compose logs bot`
+
+### Database Connection Issues
+1. Ensure PostgreSQL container is running
+2. Check database credentials in .env
+3. Run: `docker-compose restart postgres`
+
+### API Not Loading
+1. Check if port 8000 is available
+2. Verify environment variables
+3. Check logs: `docker-compose logs api`
+
+### Dashboard Not Loading
+1. Check if port 3000 is available
+2. Verify NextAuth configuration
+3. Check logs: `docker-compose logs dashboard`
+
+## 🔍 Monitoring & Debugging
+
+### Service Health Checks
 ```bash
-# Verificar token en .env
-echo $DISCORD_TOKEN
-# Revisar logs
-docker-compose logs bot
+# Check all service status
+docker-compose ps
+
+# Health check endpoints
+curl http://localhost:8000/health          # API health
+curl http://localhost:3000/api/health      # Dashboard health
 ```
 
-### **Base de datos problemas**:
+### Log Analysis
 ```bash
-# Resetear DB
-docker exec -it tatiana-postgres psql -U tatiana_user -d tatiana_db -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-cd bot && alembic upgrade head
+# Real-time logs for all services
+docker-compose logs -f
+
+# Filter logs by service
+docker-compose logs -f bot | grep ERROR
+docker-compose logs -f api | grep WARNING
 ```
 
-## 📊 Progreso Visual - Primeros 7 Días
+### Performance Monitoring
+- **API Metrics**: http://localhost:8000/metrics
+- **Database Stats**: Access via pgAdmin (http://localhost:5050)
+- **Redis Stats**: Access via Redis Commander (http://localhost:8081)
 
-```
-Día 1: [██████████] 100% ✅ Setup Complete
-Día 2: [__________]   0% 🎯 Database Schema  
-Día 3: [__________]   0% 🎯 Bot Connection
-Día 4: [__________]   0% 🎯 FastAPI Setup
-Día 5: [__________]   0% 🎯 Testing Setup
-Día 6: [__________]   0% 🎯 Commands System
-Día 7: [__________]   0% 🎯 AI Integration
+## 📚 Next Steps
 
-SEMANA 1: [██________]  20% (1/5 días)
-```
+### Development
+1. Read the [Technical Specification](./TECHNICAL_SPECIFICATION.md)
+2. Review the [Architecture Guide](./ARCHITECTURE.md)
+3. Check the [Contributing Guide](../CONTRIBUTING.md)
 
-## 🎯 Criterios de Éxito por Día
+### Production Deployment
+1. Read the [Deployment Guide](./DEPLOYMENT.md)
+2. Review security configurations
+3. Set up monitoring and backups
 
-### **Día 1** ✅
-- [ ] Git repo inicializado
-- [ ] Docker containers corriendo
-- [ ] .env configurado correctamente
-- [ ] Setup script ejecutado sin errores
+### Feature Development
+1. Review the [Development Roadmap](./DEVELOPMENT_ROADMAP.md)
+2. Check the [API Reference](./API_REFERENCE.md)
+3. Read the [Bot Commands](./COMMANDS_REFERENCE.md)
 
-### **Día 2** 🎯
-- [ ] Schema SQL completo
-- [ ] Alembic configurado
-- [ ] Migración aplicada
-- [ ] Tablas creadas en PostgreSQL
+## 🆘 Getting Help
 
-### **Día 3** 🎯
-- [ ] Bot aparece online en Discord
-- [ ] Logs estructurados funcionan
-- [ ] Bot responde a menciones
-- [ ] Configuración carga desde .env
+### Documentation
+- [Complete Documentation](./README.md)
+- [FAQ](./FAQ.md)
+- [Troubleshooting](./TROUBLESHOOTING.md)
 
-### **Día 4** 🎯
-- [ ] FastAPI corriendo en puerto 8000
-- [ ] /health endpoint responde
-- [ ] /docs muestra documentación
-- [ ] JWT authentication básico
+### Community
+- [GitHub Issues](https://github.com/ItsJhonAlex/Tatiana/issues)
+- [Discord Server](https://discord.gg/your-server)
+- [Discussions](https://github.com/ItsJhonAlex/Tatiana/discussions)
 
-### **Día 5** 🎯
-- [ ] Tests unitarios corriendo
-- [ ] Coverage report generado
-- [ ] GitHub Actions verde
-- [ ] Quality gates pasando
-
-## 🏆 Motivación y Tips
-
-### **🔥 Tips para Mantener el Momentum**:
-1. **Commit cada 30-60 minutos** - Progreso visible
-2. **Celebra los pequeños wins** - Cada comando que funciona
-3. **Usa el checklist** - Satisfacción de marcar ✅
-4. **No te saltes los tests** - Te ahorrará tiempo después
-5. **Documenta lo que aprendes** - Para futura referencia
-
-### **⚡ Cuando te sientas abrumado**:
-1. **Respira** - Es normal sentirse así
-2. **Enfócate en UNA tarea** - No pienses en toda la semana
-3. **Revisa lo que ya lograste** - Has llegado hasta aquí
-4. **Pide ayuda** - La documentación está ahí para ayudarte
-
-### **🎯 Mantén el enfoque**:
-- **Una cosa a la vez** - No saltes entre tareas
-- **Sigue el orden** - El roadmap está diseñado así por una razón
-- **Prueba cada step** - No asumas que funciona
-- **Documenta problemas** - Para no repetir errores
+### Support
+- Create an issue for bugs
+- Use discussions for questions
+- Check existing documentation first
 
 ---
 
-## 🚀 ¡EMPEZAR AHORA!
+## ⭐ Success!
 
-**📌 Tu próxima acción inmediata:**
+If everything is working correctly, you should have:
+- ✅ Bot responding to commands in Discord
+- ✅ Web dashboard accessible and functional
+- ✅ API responding to requests
+- ✅ Database and cache operational
 
-1. **Abrir terminal**
-2. **Navegar al proyecto**: `cd /home/itsjhonalex/Desarrollo/Proyectos/Tatiana`
-3. **Ejecutar primer comando**: `git status`
-4. **Seguir el setup de arriba**
+**Congratulations! Tatiana Bot 2.0 is now running in development mode.**
 
-**🎯 Meta de hoy**: Tener Docker corriendo y .env configurado
-
-**🔥 Meta de mañana**: Base de datos con schema completo
-
----
-
-**¡Vamos! ¡Tu viaje hacia Tatiana Bot 2.0 empieza AHORA! 🚀✨**
+Ready to start developing? Check out the [Development Roadmap](./DEVELOPMENT_ROADMAP.md) for next steps!
 
 *Recuerda: Cada línea de código te acerca más al bot más avanzado que hayas creado.* 

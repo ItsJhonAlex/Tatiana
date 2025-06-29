@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   postgres:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     container_name: tatiana-postgres
     restart: unless-stopped
     environment:
@@ -25,7 +23,7 @@ services:
 
   # Redis Cache
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     container_name: tatiana-redis
     restart: unless-stopped
     ports:

@@ -1,145 +1,145 @@
 # ✅ Tatiana Bot 2.0 - Roadmap Checklist
 
-## 🎯 Progreso General del Proyecto
+## 🎯 Overall Project Progress
 
 ```
-🏗️ FASE 1: INFRAESTRUCTURA     [____________________] 0% (0/2 semanas)
-🛡️ FASE 2: FEATURES ESENCIALES [____________________] 0% (0/2 semanas)  
-🎮 FASE 3: SISTEMAS DE GAMING  [____________________] 0% (0/2 semanas)
-🚀 FASE 4: FEATURES AVANZADAS  [____________________] 0% (0/2 semanas)
-🌐 FASE 5: WEB DASHBOARD       [____________________] 0% (0/2 semanas)
+🏗️ PHASE 1: INFRASTRUCTURE     [____________________] 0% (0/2 weeks)
+🛡️ PHASE 2: ESSENTIAL FEATURES [____________________] 0% (0/2 weeks)  
+🎮 PHASE 3: GAMING SYSTEMS     [____________________] 0% (0/2 weeks)
+🚀 PHASE 4: ADVANCED FEATURES  [____________________] 0% (0/2 weeks)
+🌐 PHASE 5: WEB DASHBOARD      [____________________] 0% (0/2 weeks)
 
-PROGRESO TOTAL: [____________________] 0% (0/10 semanas)
+TOTAL PROGRESS: [____________________] 0% (0/10 weeks)
 ```
 
 ---
 
-# 🏗️ FASE 1: INFRAESTRUCTURA (Semanas 1-2)
+# 🏗️ PHASE 1: INFRASTRUCTURE (Weeks 1-2)
 
-## 📅 Semana 1: Configuración Base
+## 📅 Week 1: Base Configuration
 
-### **Día 1: Setup del Proyecto** ⏱️ 4-6 horas
-- [ ] Git inicializado con commit inicial
-- [ ] Docker containers corriendo (postgres, redis)
-- [ ] Variables de entorno configuradas
-- [ ] Estructura de directorios creada
+### **Day 1: Project Setup** ⏱️ 4-6 hours
+- [ ] Git initialized with initial commit
+- [ ] Docker containers running (postgres, redis)
+- [ ] Environment variables configured
+- [ ] Directory structure created
 
-### **Día 2: Database Schema** ⏱️ 6-8 horas
-- [ ] Schema completo implementado
-- [ ] Alembic configurado
-- [ ] Migración inicial funciona
-- [ ] Tablas creadas en PostgreSQL
+### **Day 2: Database Schema** ⏱️ 6-8 hours
+- [ ] Complete schema implemented
+- [ ] Alembic configured
+- [ ] Initial migration works
+- [ ] Tables created in PostgreSQL
 
-### **Día 3: Bot Framework Básico** ⏱️ 6-8 horas
-- [ ] Bot se conecta a Discord
-- [ ] Logs estructurados funcionan
-- [ ] Configuración carga correctamente
-- [ ] Responde a ping básico
+### **Day 3: Basic Bot Framework** ⏱️ 6-8 hours
+- [ ] Bot connects to Discord
+- [ ] Structured logging works
+- [ ] Configuration loads correctly
+- [ ] Responds to basic ping
 
-### **Día 4: FastAPI Backend** ⏱️ 6-8 horas
-- [ ] FastAPI corriendo en Docker
-- [ ] Health endpoint responde
-- [ ] JWT authentication funciona
-- [ ] Documentación auto-generada accesible
+### **Day 4: FastAPI Backend** ⏱️ 6-8 hours
+- [ ] FastAPI running in Docker
+- [ ] Health endpoint responds
+- [ ] JWT authentication works
+- [ ] Auto-generated documentation accessible
 
-### **Día 5: Testing y CI** ⏱️ 4-6 horas
-- [ ] Tests unitarios corriendo
+### **Day 5: Testing and CI** ⏱️ 4-6 hours
+- [ ] Unit tests running
 - [ ] Coverage > 70%
-- [ ] CI pipeline funciona
+- [ ] CI pipeline works
 
-## 📅 Semana 2: Comandos Base y AI
+## 📅 Week 2: Base Commands and AI
 
-### **Día 6: Sistema de Comandos** ⏱️ 6-8 horas
-- [ ] `/ping` funciona
-- [ ] `/help` muestra comandos
-- [ ] Sistema de cooldowns implementado
+### **Day 6: Command System** ⏱️ 6-8 hours
+- [ ] `/ping` works
+- [ ] `/help` shows commands
+- [ ] Cooldown system implemented
 
-### **Día 7: Integración Gemini AI** ⏱️ 6-8 horas
-- [ ] `/chat` responde con Gemini AI
-- [ ] Personalidades cambian comportamiento
-- [ ] Contexto se mantiene en conversación
-
----
-
-# 🛡️ FASE 2: CARACTERÍSTICAS ESENCIALES (Semanas 3-4)
-
-## 📅 Semana 3: Moderación y Economía
-
-### **Día 8: Sistema de Moderación** ⏱️ 8 horas
-- [ ] Comandos de moderación funcionan
-- [ ] Logs se guardan en database
-- [ ] AutoMod detecta spam básico
-
-### **Día 9: Sistema de Economía** ⏱️ 8 horas
-- [ ] `/balance` muestra saldo correcto
-- [ ] `/daily` funciona con cooldown 24h
-- [ ] `/transfer` valida y transfiere fondos
-
-### **Día 10: Configuración de Servidor** ⏱️ 6 horas
-- [ ] Prefix personalizable por servidor
-- [ ] Configuraciones persistentes
-- [ ] Features se pueden activar/desactivar
+### **Day 7: Gemini AI Integration** ⏱️ 6-8 hours
+- [ ] `/chat` responds with Gemini AI
+- [ ] Personalities change behavior
+- [ ] Context maintained in conversation
 
 ---
 
-# 🎮 FASE 3: SISTEMAS DE GAMING (Semanas 5-6)
+# 🛡️ PHASE 2: ESSENTIAL FEATURES (Weeks 3-4)
 
-## 📅 Semana 5: Sistema Pokémon y Cartas
+## 📅 Week 3: Moderation and Economy
 
-### **Día 13-15: Sistema Pokémon** ⏱️ 24 horas
-- [ ] Pokémon spawean aleatoriamente
-- [ ] `/pokemon catch` funciona
-- [ ] Lista de Pokémon con paginación
+### **Day 8: Moderation System** ⏱️ 8 hours
+- [ ] Moderation commands work
+- [ ] Logs saved in database
+- [ ] AutoMod detects basic spam
 
-### **Día 16-17: Sistema de Cartas** ⏱️ 14 horas
-- [ ] Packs se pueden comprar
-- [ ] Cartas se obtienen con raridad correcta
-- [ ] Colección se muestra correctamente
+### **Day 9: Economy System** ⏱️ 8 hours
+- [ ] `/balance` shows correct balance
+- [ ] `/daily` works with 24h cooldown
+- [ ] `/transfer` validates and transfers funds
+
+### **Day 10: Server Configuration** ⏱️ 6 hours
+- [ ] Customizable prefix per server
+- [ ] Persistent configurations
+- [ ] Features can be enabled/disabled
 
 ---
 
-# 🚀 FASE 4: CARACTERÍSTICAS AVANZADAS (Semanas 7-8)
+# 🎮 PHASE 3: GAMING SYSTEMS (Weeks 5-6)
 
-### **Objetivos Principales:**
-- [ ] AutoMod avanzado
+## 📅 Week 5: Pokémon and Cards System
+
+### **Days 13-15: Pokémon System** ⏱️ 24 hours
+- [ ] Pokémon spawn randomly
+- [ ] `/pokemon catch` works
+- [ ] Pokémon list with pagination
+
+### **Days 16-17: Cards System** ⏱️ 14 hours
+- [ ] Packs can be purchased
+- [ ] Cards obtained with correct rarity
+- [ ] Collection displayed correctly
+
+---
+
+# 🚀 PHASE 4: ADVANCED FEATURES (Weeks 7-8)
+
+### **Main Goals:**
+- [ ] Advanced AutoMod
 - [ ] Trading systems
-- [ ] Gambling completo
-- [ ] Analytics básico
+- [ ] Complete gambling features
+- [ ] Basic analytics
 
 ---
 
-# 🌐 FASE 5: WEB DASHBOARD (Semanas 9-10)
+# 🌐 PHASE 5: WEB DASHBOARD (Weeks 9-10)
 
-### **Objetivos Principales:**
-- [ ] Next.js 14 configurado
-- [ ] Authentication con Discord
-- [ ] Dashboard funcional
-- [ ] Deployment en producción
+### **Main Goals:**
+- [ ] Next.js 14 configured
+- [ ] Discord authentication
+- [ ] Functional dashboard
+- [ ] Production deployment
 
 ---
 
-# 🎯 Criterios de Finalización
+# 🎯 Completion Criteria
 
-## ✅ **Checklist Final**
+## ✅ **Final Checklist**
 
-### **Funcionalidad Completa**
-- [ ] Todos los comandos implementados
-- [ ] Web dashboard funcional
-- [ ] Features del bot original migradas
-- [ ] Nuevas features funcionando
+### **Complete Functionality**
+- [ ] All commands implemented
+- [ ] Functional web dashboard
+- [ ] Original bot features migrated
+- [ ] New features working
 
 ### **Performance & Quality**
 - [ ] Response time <200ms
 - [ ] Test coverage >80%
 - [ ] No memory leaks
-- [ ] No bugs críticos
+- [ ] No critical bugs
 
 ### **Deployment**
-- [ ] Docker optimizado
+- [ ] Optimized Docker
 - [ ] Production tested
-- [ ] Monitoring configurado
-- [ ] Documentation completa
+- [ ] Monitoring configured
+- [ ] Complete documentation
 
 ---
 
-**🎯 ¡Usa este checklist para mantenerte organizado y seguir tu progreso día a día!** 
+**🎯 Use this checklist to stay organized and track your progress day by day!** 

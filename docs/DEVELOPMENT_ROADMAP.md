@@ -1,733 +1,544 @@
-# 🗺️ Tatiana Bot 2.0 - Development Roadmap
+# 🗺️ Development Roadmap - Tatiana Bot 2.0
 
-## 📋 Roadmap Overview
+## 🎯 Project Overview
 
-Este roadmap detallado te guiará paso a paso en el desarrollo de Tatiana Bot 2.0, desde la configuración inicial hasta el despliegue completo. Cada tarea incluye criterios de éxito específicos y comandos exactos a ejecutar.
+This detailed roadmap will guide you step by step through the development of Tatiana Bot 2.0. Follow this guide to build the most advanced Discord bot you've ever created.
 
-## 🎯 Metodología de Desarrollo
+## 🎨 Development Methodology
 
-### **Principios Clave**
-- ✅ **Una tarea a la vez**: Completa cada etapa antes de continuar
-- ✅ **Testing continuo**: Prueba cada componente al implementarlo
-- ✅ **Documentación en vivo**: Actualiza docs con cada cambio
-- ✅ **Commits frecuentes**: Commit pequeños y descriptivos
-- ✅ **Modularidad**: Archivos máximo 200 líneas
+### Key Principles
+- **One task at a time** - Complete before moving to the next
+- **Continuous testing** - Test each component as you build
+- **Iterative approach** - Build, test, improve, repeat
+- **Documentation driven** - Document everything as you go
 
-## 📅 Timeline Detallado (10 Semanas)
+### Quality Standards
+- **File size limit**: 200 lines per file (150 for React components)
+- **Test coverage**: 80% for backend, 70% for frontend
+- **Code quality**: Strict linting and formatting
+- **Security first**: All features security validated
 
 ---
 
-# 🏗️ FASE 1: INFRAESTRUCTURA (Semanas 1-2)
+## 📅 Detailed Development Phases
 
-## Semana 1: Configuración Base
+# 🏗️ PHASE 1: INFRASTRUCTURE (Weeks 1-2)
 
-### **Día 1: Setup del Proyecto** ⏱️ 4-6 horas
+## 📅 Week 1: Base Configuration
 
-#### 📋 Tareas Específicas:
+### **Day 1: Project Setup** ⏱️ 4-6 hours
+**Priority**: Critical
+**Dependencies**: None
 
-1. **Inicializar Git y estructura** (30 min)
+#### Tasks:
+- [ ] Initialize Git repository with initial commit
+- [ ] Configure Docker containers (postgres, redis)
+- [ ] Set up environment variables
+- [ ] Create directory structure
+
+#### Success Criteria:
+```bash
+git status                    # Should show clean working tree
+docker-compose ps             # Should show running containers
+docker exec tatiana-postgres pg_isready  # Should return "accepting connections"
+docker exec tatiana-redis redis-cli ping # Should return PONG
+```
+
+#### Expected Files:
+- `.env` (configured with your tokens)
+- `docker-compose.yml` (running successfully)
+- Basic directory structure
+
+---
+
+### **Day 2: Database Schema** ⏱️ 6-8 hours
+**Priority**: Critical
+**Dependencies**: Day 1 completed
+
+#### Tasks:
+- [ ] Implement complete database schema
+- [ ] Configure Alembic for migrations
+- [ ] Create initial migration
+- [ ] Verify tables in PostgreSQL
+
+#### Success Criteria:
+```bash
+cd bot && alembic upgrade head  # Should run without errors
+```
+
+#### Database Tables to Create:
+1. **Users** - Discord user profiles and preferences
+2. **Guilds** - Server configurations and settings
+3. **Economy** - Virtual currency and transactions
+4. **Pokémon** - Caught pokémon and stats
+5. **Cards** - Trading card collections
+6. **Moderation** - Warnings, bans, and logs
+
+#### Files to Create:
+```
+bot/
+├── alembic.ini
+├── migrations/
+│   ├── env.py
+│   └── versions/
+└── models/
+    ├── __init__.py
+    ├── user.py
+    ├── guild.py
+    ├── economy.py
+    ├── pokemon.py
+    ├── cards.py
+    └── moderation.py
+```
+
+---
+
+### **Day 3: Basic Bot Framework** ⏱️ 6-8 hours
+**Priority**: Critical
+**Dependencies**: Day 2 completed
+
+#### Tasks:
+- [ ] Bot connects to Discord
+- [ ] Structured logging system
+- [ ] Configuration loads correctly
+- [ ] Basic ping response
+
+#### Success Criteria:
+```bash
+# Bot appears online in Discord
+# Responds to mentions with basic message
+# Logs appear in console with proper formatting
+```
+
+#### Files to Create:
+```
+bot/
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── settings.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── bot.py
+│   │   └── database.py
+│   └── utils/
+│       ├── __init__.py
+│       └── logging.py
+└── requirements.txt
+```
+
+#### Key Code Structure:
+```python
+# bot/src/main.py
+import asyncio
+from core.bot import TatianaBot
+
+async def main():
+    bot = TatianaBot()
+    await bot.start()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+---
+
+### **Day 4: FastAPI Backend** ⏱️ 6-8 hours
+**Priority**: Critical
+**Dependencies**: Day 3 completed
+
+#### Tasks:
+- [ ] FastAPI running in Docker
+- [ ] Health endpoint responds
+- [ ] JWT authentication works
+- [ ] Auto-generated documentation accessible
+
+#### Success Criteria:
+```bash
+curl http://localhost:8000/health        # Should return {"status": "healthy"}
+curl http://localhost:8000/docs          # Should load Swagger UI
+```
+
+#### Files to Create:
+```
+api/
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── settings.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   ├── __init__.py
+│   │   │   ├── health.py
+│   │   │   └── auth.py
+│   │   └── dependencies.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── security.py
+│   │   └── database.py
+│   └── models/
+├── requirements.txt
+└── Dockerfile.dev
+```
+
+---
+
+### **Day 5: Testing and CI** ⏱️ 4-6 hours
+**Priority**: High
+**Dependencies**: Day 4 completed
+
+#### Tasks:
+- [ ] Unit tests running
+- [ ] Test coverage > 70%
+- [ ] CI pipeline functional
+
+#### Success Criteria:
+```bash
+cd bot && python -m pytest tests/ -v --cov=src --cov-report=html
+cd api && python -m pytest tests/ -v --cov=src --cov-report=html
+```
+
+#### Files to Create:
+```
+bot/tests/
+├── __init__.py
+├── conftest.py
+├── test_config.py
+├── test_database.py
+└── test_bot.py
+
+api/tests/
+├── __init__.py
+├── conftest.py
+├── test_health.py
+└── test_auth.py
+
+.github/workflows/
+└── ci.yml
+```
+
+---
+
+## 📅 Week 2: Base Commands and AI
+
+### **Day 6: Command System** ⏱️ 6-8 hours
+**Priority**: Critical
+**Dependencies**: Week 1 completed
+
+#### Tasks:
+- [ ] `/ping` command works
+- [ ] `/help` command shows commands
+- [ ] Cooldown system implemented
+
+#### Success Criteria:
+```bash
+# In Discord:
+/ping                    # Should show latency
+/help                    # Should show command list
+/ping (repeated quickly) # Should show cooldown message
+```
+
+#### Files to Create:
+```
+bot/src/cogs/
+├── __init__.py
+├── general.py           # ping, help commands
+└── base.py             # Base cog class
+```
+
+---
+
+### **Day 7: Gemini AI Integration** ⏱️ 6-8 hours
+**Priority**: High
+**Dependencies**: Day 6 completed
+
+#### Tasks:
+- [ ] `/chat` responds with Gemini AI
+- [ ] Personalities change behavior
+- [ ] Context maintained in conversation
+
+#### Success Criteria:
+```bash
+# In Discord:
+/chat Hello Tatiana!     # Should get AI response
+/personality friendly    # Should change behavior
+/chat How are you?       # Should respond with new personality
+```
+
+#### Files to Create:
+```
+bot/src/services/
+├── __init__.py
+├── ai_service.py
+└── personality_service.py
+
+bot/src/cogs/
+└── ai.py
+```
+
+---
+
+# 🛡️ PHASE 2: ESSENTIAL FEATURES (Weeks 3-4)
+
+## 📅 Week 3: Moderation and Economy
+
+### **Day 8: Moderation System** ⏱️ 8 hours
+**Priority**: High
+**Dependencies**: Phase 1 completed
+
+#### Tasks:
+- [ ] Moderation commands functional
+- [ ] Logs saved to database
+- [ ] Basic AutoMod detects spam
+
+#### Commands to Implement:
+```bash
+/ban @user reason        # Ban user with reason
+/kick @user reason       # Kick user
+/warn @user reason       # Warn user
+/mute @user duration     # Mute user temporarily
+/logs @user              # Show user's moderation history
+```
+
+#### Files to Create:
+```
+bot/src/cogs/
+├── moderation.py
+└── automod.py
+
+bot/src/models/
+└── moderation.py
+```
+
+---
+
+### **Day 9: Economy System** ⏱️ 8 hours
+**Priority**: High
+**Dependencies**: Day 8 completed
+
+#### Tasks:
+- [ ] `/balance` shows correct balance
+- [ ] `/daily` works with 24h cooldown
+- [ ] `/transfer` validates and transfers funds
+
+#### Commands to Implement:
+```bash
+/balance                 # Show current balance
+/daily                   # Claim daily rewards
+/transfer @user amount   # Transfer money to user
+/shop                    # View available items
+/buy item_id            # Purchase items
+```
+
+#### Files to Create:
+```
+bot/src/cogs/
+└── economy.py
+
+bot/src/models/
+├── economy.py
+└── shop.py
+```
+
+---
+
+### **Day 10: Server Configuration** ⏱️ 6 hours
+**Priority**: Medium
+**Dependencies**: Day 9 completed
+
+#### Tasks:
+- [ ] Customizable prefix per server
+- [ ] Persistent configurations
+- [ ] Features can be enabled/disabled
+
+#### Commands to Implement:
+```bash
+/config prefix !         # Change server prefix
+/config feature economy true  # Enable/disable features
+/config view             # Show current configuration
+```
+
+---
+
+# 🎮 PHASE 3: GAMING SYSTEMS (Weeks 5-6)
+
+## 📅 Week 5: Pokémon and Cards System
+
+### **Days 13-15: Pokémon System** ⏱️ 24 hours
+**Priority**: Medium
+**Dependencies**: Phase 2 completed
+
+#### Features to Implement:
+- [ ] Random pokémon spawns
+- [ ] `/pokemon catch` command
+- [ ] Pokémon list with pagination
+
+#### Commands:
+```bash
+/pokemon catch           # Catch spawned pokémon
+/pokemon list           # View your pokémon
+/pokemon info <id>      # View pokémon details
+/pokemon release <id>   # Release pokémon
+```
+
+---
+
+### **Days 16-17: Cards System** ⏱️ 14 hours
+**Priority**: Medium
+**Dependencies**: Pokémon system completed
+
+#### Features to Implement:
+- [ ] Packs can be purchased
+- [ ] Cards obtained with correct rarity
+- [ ] Collection displayed correctly
+
+#### Commands:
+```bash
+/cards open pack        # Open card pack
+/cards collection       # View your cards
+/cards trade @user      # Trade cards
+```
+
+---
+
+# 🚀 PHASE 4: ADVANCED FEATURES (Weeks 7-8)
+
+### Main Goals:
+- [ ] Advanced AutoMod
+- [ ] Trading systems
+- [ ] Complete gambling features
+- [ ] Basic analytics
+
+---
+
+# 🌐 PHASE 5: WEB DASHBOARD (Weeks 9-10)
+
+### Main Goals:
+- [ ] Next.js 14 configured
+- [ ] Discord authentication
+- [ ] Functional dashboard
+- [ ] Production deployment
+
+---
+
+# 📊 Progress Tracking
+
+## ✅ **Completion Criteria**
+
+### **Phase 1** (Infrastructure)
+- [ ] All containers running successfully
+- [ ] Database with complete schema
+- [ ] Bot online and responding
+- [ ] API with health checks
+- [ ] Tests with >70% coverage
+
+### **Phase 2** (Essential Features)  
+- [ ] Moderation commands working
+- [ ] Economy system functional
+- [ ] Server configuration system
+- [ ] AutoMod basic detection
+
+### **Phase 3** (Gaming Systems)
+- [ ] Pokémon spawning and catching
+- [ ] Card pack system
+- [ ] Trading functionality
+- [ ] Collection management
+
+### **Phase 4** (Advanced Features)
+- [ ] Advanced AutoMod rules
+- [ ] Complex trading systems
+- [ ] Gambling with safeguards
+- [ ] Analytics dashboard
+
+### **Phase 5** (Web Dashboard)
+- [ ] React dashboard functional
+- [ ] Discord OAuth working
+- [ ] Real-time statistics
+- [ ] Mobile responsive
+
+---
+
+# 🛠️ Daily Development Workflow
+
+## 🌅 **Start of Day** (15 minutes)
 ```bash
 cd /home/itsjhonalex/Desarrollo/Proyectos/Tatiana
-git init
-git add .
-git commit -m "feat: initial project structure with documentation"
-```
-
-2. **Configurar entorno de desarrollo** (1 hora)
-```bash
-# Verificar prerequisitos
-python3 --version  # Debe ser 3.12+
-node --version      # Debe ser 18+
-docker --version    # Verificar Docker
-pnpm --version     # Verificar pnpm
-
-# Ejecutar script de setup
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-```
-
-3. **Configurar variables de entorno** (45 min)
-```bash
-# Copiar template
-cp .env.example .env
-
-# Editar .env con valores reales
-```
-
-4. **Setup Docker inicial** (2 horas)
-```bash
-# Probar Docker Compose
-docker-compose up postgres redis -d
-docker-compose logs -f
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Git inicializado con commit inicial
-- [ ] Docker containers corriendo (postgres, redis)
-- [ ] Variables de entorno configuradas
-- [ ] Estructura de directorios creada
-
----
-
-### **Día 2: Database Schema** ⏱️ 6-8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Crear esquema base de datos** (3 horas)
-```sql
--- Archivo: database/schema.sql
--- Implementar todas las tablas del TECHNICAL_SPECIFICATION.md
-```
-
-2. **Setup Alembic para migraciones** (2 horas)
-```bash
-# En bot/ directory
-cd bot
-python -m venv venv
-source venv/bin/activate
-pip install alembic asyncpg sqlalchemy
-alembic init migrations
-```
-
-3. **Crear primera migración** (2 horas)
-```python
-# Archivo: bot/migrations/versions/001_initial_schema.py
-# Implementar todas las tablas base
-```
-
-4. **Scripts de inicialización** (1 hora)
-```bash
-# Crear script para init database
-# Archivo: database/init/01-init.sql
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Schema completo implementado
-- [ ] Alembic configurado
-- [ ] Migración inicial funciona
-- [ ] Tablas creadas en PostgreSQL
-- [ ] Indexes y constraints aplicados
-
----
-
-### **Día 3: Bot Framework Básico** ⏱️ 6-8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Estructura base del bot** (2 horas)
-```python
-# bot/src/
-# ├── __init__.py
-# ├── main.py              # Entry point
-# ├── config/
-# │   ├── __init__.py
-# │   ├── settings.py      # Configuration
-# │   └── logging.py       # Logging setup
-# ├── core/
-# │   ├── __init__.py
-# │   ├── bot.py          # Bot class
-# │   └── database.py     # DB connection
-# └── utils/
-#     ├── __init__.py
-#     └── helpers.py      # Helper functions
-```
-
-2. **Sistema de configuración** (1.5 horas)
-```python
-# bot/src/config/settings.py
-# Cargar todas las variables de .env
-# Validación de configuración
-```
-
-3. **Conexión a Discord** (1.5 horas)
-```python
-# bot/src/core/bot.py
-# Bot básico con discord.py
-# Event handlers básicos
-```
-
-4. **Sistema de logging** (1 hora)
-```python
-# bot/src/config/logging.py
-# Logging estructurado con JSON
-# Diferentes niveles por ambiente
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Bot se conecta a Discord
-- [ ] Logs estructurados funcionan
-- [ ] Configuración carga correctamente
-- [ ] Responde a ping básico
-- [ ] Estructura modular implementada
-
----
-
-### **Día 4: FastAPI Backend** ⏱️ 6-8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Estructura base API** (2 horas)
-```python
-# api/src/
-# ├── __init__.py
-# ├── main.py              # FastAPI app
-# ├── config/
-# │   ├── __init__.py
-# │   ├── settings.py      # Settings
-# │   └── database.py      # DB config
-# ├── core/
-# │   ├── __init__.py
-# │   ├── security.py      # JWT, auth
-# │   └── deps.py          # Dependencies
-# ├── models/
-# │   ├── __init__.py
-# │   └── database.py      # SQLAlchemy models
-# └── routers/
-#     ├── __init__.py
-#     ├── auth.py          # Auth endpoints
-#     └── health.py        # Health checks
-```
-
-2. **Configurar FastAPI** (1.5 horas)
-```python
-# api/src/main.py
-# FastAPI app con CORS, middleware
-# Auto-generated docs
-# Error handlers
-```
-
-3. **Sistema de autenticación** (2 horas)
-```python
-# api/src/core/security.py
-# JWT token management
-# Discord OAuth2 integration
-```
-
-4. **Health checks** (1 hora)
-```python
-# api/src/routers/health.py
-# /health endpoint
-# Database connectivity check
-```
-
-5. **Conectar con Docker** (1.5 horas)
-```bash
-# Dockerfile para API
-# Update docker-compose.yml
-# Test API container
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] FastAPI corriendo en Docker
-- [ ] Documentación auto-generada accesible
-- [ ] Health endpoint responde
-- [ ] JWT authentication funciona
-- [ ] CORS configurado correctamente
-
----
-
-### **Día 5: Testing y CI** ⏱️ 4-6 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Setup testing bot** (2 horas)
-```python
-# bot/tests/
-# ├── __init__.py
-# ├── conftest.py         # Pytest config
-# ├── test_config.py      # Config tests
-# └── test_bot.py         # Bot tests
-```
-
-2. **Setup testing API** (2 horas)
-```python
-# api/tests/
-# ├── __init__.py
-# ├── conftest.py         # Pytest config
-# ├── test_main.py        # Main tests
-# └── test_auth.py        # Auth tests
-```
-
-3. **GitHub Actions** (2 horas)
-```yaml
-# .github/workflows/test.yml
-# CI pipeline para tests
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Tests unitarios corriendo
-- [ ] Coverage > 70%
-- [ ] CI pipeline funciona
-- [ ] Tests pasan en GitHub Actions
-
----
-
-## Semana 2: Comandos Base y AI
-
-### **Día 6: Sistema de Comandos** ⏱️ 6-8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Framework de comandos** (3 horas)
-```python
-# bot/src/core/
-# ├── commands.py         # Command framework
-# └── decorators.py       # Command decorators
-```
-
-2. **Primeros comandos básicos** (3 horas)
-```python
-# bot/src/cogs/
-# ├── __init__.py
-# ├── basic.py           # ping, help, info
-# └── admin.py           # admin commands
-```
-
-3. **Sistema de help** (2 horas)
-```python
-# bot/src/cogs/help.py
-# Help system con categorías
-# Paginación de comandos
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] `/ping` funciona
-- [ ] `/help` muestra comandos
-- [ ] Sistema de cooldowns implementado
-- [ ] Error handling para comandos
-- [ ] Logs de uso de comandos
-
----
-
-### **Día 7: Integración Gemini AI** ⏱️ 6-8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Cliente Gemini AI** (3 horas)
-```python
-# bot/src/services/
-# ├── __init__.py
-# ├── ai_service.py      # Gemini integration
-# └── conversation.py    # Context management
-```
-
-2. **Comandos de AI** (3 horas)
-```python
-# bot/src/cogs/ai.py
-# /chat, /ai_personality, /ai_reset, /ai_stats
-```
-
-3. **Sistema de personalidades** (2 horas)
-```python
-# bot/src/data/personalities.py
-# Diferentes personalidades de AI
-# Sistema de prompts por servidor
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] `/chat` responde con Gemini AI
-- [ ] Personalidades cambian comportamiento
-- [ ] Contexto se mantiene en conversación
-- [ ] Rate limiting implementado
-- [ ] Token usage tracking funciona
-
----
-
----
-
-# 🛡️ FASE 2: CARACTERÍSTICAS ESENCIALES (Semanas 3-4)
-
-## Semana 3: Moderación y Economía
-
-### **Día 8: Sistema de Moderación** ⏱️ 8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Comandos de moderación** (4 horas)
-```python
-# bot/src/cogs/moderation.py
-# /warn, /mute, /kick, /ban, /unban
-# Sistema de duración de castigos
-```
-
-2. **Logging de moderación** (2 horas)
-```python
-# bot/src/services/moderation.py
-# Logs completos de acciones
-# Database storage
-```
-
-3. **AutoMod básico** (2 horas)
-```python
-# bot/src/services/automod.py
-# Detección básica de spam
-# Filtro de palabras prohibidas
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Comandos de moderación funcionan
-- [ ] Logs se guardan en database
-- [ ] AutoMod detecta spam básico
-- [ ] Mutes temporales expiran automáticamente
-- [ ] Permisos verificados correctamente
-
----
-
-### **Día 9: Sistema de Economía** ⏱️ 8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Modelo de datos de economía** (2 horas)
-```python
-# bot/src/models/economy.py
-# User balances, transactions
-# Database operations
-```
-
-2. **Comandos básicos de economía** (4 horas)
-```python
-# bot/src/cogs/economy.py
-# /balance, /daily, /transfer, /work
-```
-
-3. **Sistema de transacciones** (2 horas)
-```python
-# bot/src/services/economy.py
-# Transaction logging
-# Balance validation
-# Daily streak system
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] `/balance` muestra saldo correcto
-- [ ] `/daily` funciona con cooldown 24h
-- [ ] `/transfer` valida y transfiere fondos
-- [ ] Transacciones se logean correctamente
-- [ ] No se puede generar dinero falso
-
----
-
-### **Día 10: Configuración de Servidor** ⏱️ 6 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Sistema de configuración** (3 horas)
-```python
-# bot/src/models/guild.py
-# Guild settings storage
-# Per-guild configuration
-```
-
-2. **Comandos de configuración** (3 horas)
-```python
-# bot/src/cogs/config.py
-# /config prefix, /config language
-# /config toggle features
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Prefix personalizable por servidor
-- [ ] Configuraciones persistentes
-- [ ] Features se pueden activar/desactivar
-- [ ] Solo admins pueden configurar
-
----
-
-### **Día 11: Información y Utilidades** ⏱️ 6 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Comandos de información** (3 horas)
-```python
-# bot/src/cogs/info.py
-# /serverinfo, /userinfo, /ping
-```
-
-2. **Sistema de polls** (3 horas)
-```python
-# bot/src/cogs/polls.py
-# /poll con reacciones
-# Conteo automático
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Información de servidor completa
-- [ ] Estadísticas de usuario precisas
-- [ ] Polls interactivos funcionan
-- [ ] Embeds bien formateados
-
----
-
-### **Día 12: Testing Fase 2** ⏱️ 4 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Tests de moderación** (2 horas)
-2. **Tests de economía** (2 horas)
-
-#### ✅ Criterios de Éxito:
-- [ ] Todos los tests pasan
-- [ ] Coverage > 75%
-- [ ] No hay memory leaks
-- [ ] Performance acceptable
-
----
-
-## Semana 4: Optimización Base
-
-### **Día 13-14: Optimización y Bug Fixing** ⏱️ 12 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Optimización de database** (4 horas)
-2. **Cache con Redis** (4 horas)
-3. **Bug fixing** (4 horas)
-
-#### ✅ Criterios de Éxito:
-- [ ] Queries optimizadas
-- [ ] Cache funcionando
-- [ ] No bugs críticos
-- [ ] Response time <200ms
-
----
-
-# 🎮 FASE 3: SISTEMAS DE GAMING (Semanas 5-6)
-
-## Semana 5: Sistema Pokémon y Cartas
-
-### **Día 15-17: Sistema Pokémon** ⏱️ 24 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Modelo de datos Pokémon** (3 horas)
-```python
-# bot/src/models/pokemon.py
-# Pokemon species, user pokemon
-# Stats, types, rarity
-```
-
-2. **Sistema de spawn** (3 horas)
-```python
-# bot/src/services/pokemon_spawner.py
-# Random spawning logic
-# Rarity calculations
-```
-
-3. **Comando catch** (2 horas)
-```python
-# bot/src/cogs/pokemon.py
-# /pokemon catch
-# Success rate calculations
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Pokémon spawan aleatoriamente
-- [ ] `/pokemon catch` funciona
-- [ ] Raridades respetadas
-- [ ] Stats generados correctamente
-
-### **Día 18-19: Sistema de Cartas** ⏱️ 14 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Modelo de cartas** (3 horas)
-```python
-# bot/src/models/cards.py
-# Card database, user collections
-```
-
-2. **Sistema de packs** (3 hours)
-```python
-# bot/src/services/card_packs.py
-# Pack opening logic
-# Rarity distribution
-```
-
-3. **Comandos básicos** (2 hours)
-```python
-# bot/src/cogs/cards.py
-# /cards buy, /cards collection
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Packs se pueden comprar
-- [ ] Cartas se obtienen con raridad correcta
-- [ ] Colección se muestra correctamente
-- [ ] Balance se deduce del costo
-
----
-
-### **Día 20: Entretenimiento** ⏱️ 6 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Comandos sociales** (3 hours)
-```python
-# bot/src/cogs/social.py
-# /hug, /kiss, /pat, /poke
-```
-
-2. **Comandos de diversión** (3 hours)
-```python
-# bot/src/cogs/fun.py
-# /8ball, /meme, /trivia
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Comandos sociales con GIFs
-- [ ] 8ball respuestas aleatorias
-- [ ] Sistema de memes funciona
-- [ ] Trivia con múltiples categorías
-
----
-
-### **Día 21: Testing Gaming** ⏱️ 4 horas
-
-#### ✅ Criterios de Éxito:
-- [ ] Todos los sistemas de gaming funcionan
-- [ ] No hay bugs en spawning
-- [ ] Economía integrada correctamente
-
----
-
-## Semana 6: Funciones Avanzadas de Gaming
-
-### **Día 22: Gambling** ⏱️ 8 horas
-
-#### 📋 Tareas Específicas:
-
-1. **Juegos de casino** (8 hours)
-```python
-# bot/src/cogs/gambling.py
-# /coinflip, /dice, /slots, /blackjack
-```
-
-#### ✅ Criterios de Éxito:
-- [ ] Todos los juegos funcionan
-- [ ] Probabilidades correctas
-- [ ] Balance validation
-
----
-
-# 🚀 FASE 4: CARACTERÍSTICAS AVANZADAS (Semanas 7-8)
-
-## Semana 7-8: Features Avanzadas
-
-### **Objetivos Principales:**
-- [ ] AutoMod avanzado
-- [ ] Trading systems
-- [ ] Gambling completo
-- [ ] Analytics básico
-
----
-
-# 🌐 FASE 5: WEB DASHBOARD (Semanas 9-10)
-
-## Semana 9-10: Dashboard Completo
-
-### **Objetivos Principales:**
-- [ ] Next.js 14 configurado
-- [ ] Authentication con Discord
-- [ ] Dashboard funcional
-- [ ] Deployment en producción
-
-## 📊 Métricas de Seguimiento
-
-### **KPIs por Fase**
-
-#### **Fase 1 - Infraestructura**
-- [ ] Docker containers running ✅
-- [ ] Database schema deployed ✅
-- [ ] Bot connects to Discord ✅
-- [ ] API responds to health checks ✅
-- [ ] Tests coverage > 70% ✅
-
-#### **Fase 2 - Features Esenciales**
-- [ ] All moderation commands work ✅
-- [ ] Economy system functional ✅
-- [ ] AI chat responsive ✅
-- [ ] Configuration persistent ✅
-- [ ] Response time <200ms ✅
-
-#### **Fase 3 - Gaming Systems**
-- [ ] Pokémon spawning/catching works ✅
-- [ ] Card packs and collection ✅
-- [ ] Social commands with GIFs ✅
-- [ ] Entertainment features ✅
-- [ ] Gaming integrated with economy ✅
-
-#### **Fase 4 - Advanced Features**
-- [ ] Advanced AutoMod functional ✅
-- [ ] Trading systems secure ✅
-- [ ] Analytics collecting data ✅
-- [ ] Marketplace operational ✅
-- [ ] Performance optimized ✅
-
-#### **Fase 5 - Web Dashboard**
-- [ ] Dashboard authentication ✅
-- [ ] Real-time data display ✅
-- [ ] Server management tools ✅
-- [ ] Moderation panel ✅
-- [ ] Production deployment ✅
-
-## 🎯 Criterios de Éxito Final
-
-### **Técnicos**
-- ✅ Response time: <200ms (95th percentile)
-- ✅ Uptime: >99.5%
-- ✅ Test coverage: >80%
-- ✅ Memory usage: <512MB
-- ✅ No security vulnerabilities
-
-### **Funcionales**
-- ✅ 50+ commands implemented
-- ✅ Web dashboard fully functional
-- ✅ All original bot features migrated
-- ✅ AI personality system working
-- ✅ Gaming systems integrated
-
-## 🛠️ Comandos de Desarrollo Diarios
-
-### **Inicio del día:**
-```bash
-# Update y status check
 git pull origin main
-docker-compose ps
 docker-compose up -d
+docker-compose logs --tail=20
 ```
 
-### **Durante desarrollo:**
+## 💻 **During Development**
 ```bash
-# Tests frecuentes
-cd bot && python -m pytest tests/ -v
-cd api && python -m pytest tests/ -v
+# Frequent testing
+cd bot && source venv/bin/activate && python -m pytest tests/ -v
 
-# Commit frecuente
+# Frequent commits
 git add .
-git commit -m "feat(bot): implement feature"
+git commit -m "feat(bot): implement [specific feature]"
 ```
 
-### **Final del día:**
+## 🌙 **End of Day** (10 minutes)
 ```bash
-# Push changes
+# Run full test suite
+make test
+
+# Commit and push
 git push origin main
 docker-compose down
 ```
 
-## 📝 Template de Commit Messages
+---
 
-```
-feat(component): add new feature
-fix(component): resolve bug in feature  
-docs(component): update documentation
-style(component): format code
-refactor(component): restructure code
-test(component): add tests
-chore(component): update dependencies
-```
+# 📈 Success Metrics
+
+## **Weekly Goals**
+- **Week 1**: Infrastructure complete ✅
+- **Week 2**: Commands and AI functional ✅  
+- **Week 3**: Moderation and economy operational ✅
+- **Week 4**: Server configuration complete ✅
+- **Week 5**: Gaming systems functional ✅
+
+## **Quality Standards**
+- **Code Coverage**: >80% backend, >70% frontend
+- **Response Time**: <200ms average
+- **Uptime**: >99.9%
+- **Memory Usage**: <512MB per service
+
+## **Feature Completion**
+- **Core Commands**: 100% (ping, help, moderation)
+- **AI Integration**: 100% (chat, personalities)
+- **Economy**: 100% (balance, daily, transfer)
+- **Gaming**: 80% (pokémon, cards)
+- **Dashboard**: 60% (basic functionality)
 
 ---
 
-**🎯 ¡Sigue este roadmap paso a paso y tendrás Tatiana Bot 2.0 funcionando completamente en 10 semanas!**
+# 🎯 **Next Action Items**
 
-**Recuerda**: Una tarea a la vez, testing continuo, y commits frecuentes. ¡Tú puedes! 🚀✨ 
+## **Immediate (Today)**
+1. **Start containers**: `docker-compose up -d`
+2. **Check status**: `docker-compose ps`
+3. **Begin Day 1 tasks** from Week 1
+
+## **This Week**
+1. Complete infrastructure setup
+2. Get bot online and responding
+3. Database schema implemented
+4. Basic API functionality
+
+## **Next Week**
+1. Command system implementation
+2. AI integration with Gemini
+3. Testing and CI/CD setup
+
+---
+
+**🔥 Remember**: Focus on one task at a time, test everything, and celebrate small wins!
+
+Your journey to the most advanced Discord bot begins now. Let's build something amazing! 🚀✨ 
