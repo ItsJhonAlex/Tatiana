@@ -219,7 +219,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
       
     - name: 🤖 Build bot image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./bot
         file: ./bot/Dockerfile.dev
@@ -229,7 +229,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 🌐 Build API image  
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./api
         file: ./api/Dockerfile.dev
@@ -239,7 +239,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 💻 Build dashboard image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./dashboard
         file: ./dashboard/Dockerfile.dev
