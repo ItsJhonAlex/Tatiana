@@ -50,7 +50,7 @@ jobs:
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.13.4'
+        python-version: '3.13.5'
         
     - name: 🟨 Set up Node.js
       uses: actions/setup-node@v4

@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  PYTHON_VERSION: '3.13.4'
+  PYTHON_VERSION: '3.13.5'
   NODE_VERSION: '22'
 
 jobs:

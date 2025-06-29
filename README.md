@@ -1,7 +1,7 @@
 # 🎮 Tatiana Bot 2.0
 ## The Most Advanced Discord Bot for Modern Communities
 
-[![Python](https://img.shields.io/badge/Python-3.13.4-blue.svg)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.13.5-blue.svg)](https://python.org)
 [![UV](https://img.shields.io/badge/UV-package%20manager-green.svg)](https://github.com/astral-sh/uv)
 [![Discord.py](https://img.shields.io/badge/Discord.py-2.5.2-blue.svg)](https://discordpy.readthedocs.io/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.14-green.svg)](https://fastapi.tiangolo.com/)
@@ -62,7 +62,7 @@
 ### 🧩 Technology Stack
 
 #### **Backend Services**
-- **Python 3.13.4** - Latest stable Python release
+- **Python 3.13.5** - Latest stable Python release
 - **discord.py 2.5.2** - Modern Discord API wrapper
 - **FastAPI 0.115.14** - High-performance API framework
 - **PostgreSQL 17** - Advanced relational database

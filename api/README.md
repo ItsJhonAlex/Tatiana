@@ -34,7 +34,7 @@ Once running, visit:
 ## 🛠️ Technology Stack
 
 - **FastAPI 0.115.14** - Modern async web framework
-- **Python 3.13.4** - Latest Python version
+- **Python 3.13.5** - Latest Python version
 - **UV** - Ultra-fast package manager
 - **PostgreSQL 17** - Primary database
 - **Redis 8** - Caching and sessions

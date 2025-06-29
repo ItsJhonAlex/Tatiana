@@ -78,7 +78,7 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ### 1. Discord Bot Service
 
-**Technology**: Python 3.13.4 + discord.py 2.5.2  
+**Technology**: Python 3.13.5 + discord.py 2.5.2  
 **Responsibility**: Handle Discord interactions and bot commands
 
 ```python

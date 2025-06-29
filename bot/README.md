@@ -34,7 +34,7 @@ python main.py
 ## 🛠️ Technology Stack
 
 - **discord.py 2.5.2** - Discord API wrapper
-- **Python 3.13.4** - Latest Python version
+- **Python 3.13.5** - Latest Python version
 - **UV** - Ultra-fast package manager
 - **Google Gemini AI** - AI conversation system
 - **PostgreSQL 17** - Data persistence

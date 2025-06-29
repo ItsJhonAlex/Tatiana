@@ -89,7 +89,7 @@ Welcome to the comprehensive documentation for **Tatiana Bot 2.0**! This directo
 ## 🛠️ Technology Stack Overview
 
 ### **Backend Services**
-- **Discord Bot**: Python 3.13.4 + discord.py 2.5.2
+- **Discord Bot**: Python 3.13.5 + discord.py 2.5.2
 - **Package Manager**: UV (ultra-fast Python package management)
 - **Web API**: FastAPI 0.115.14 with async/await
 - **Database**: PostgreSQL 17 + Redis 8

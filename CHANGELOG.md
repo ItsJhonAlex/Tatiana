@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Initial Project** - Complete setup of Tatiana Bot 2.0
 - **Modern Architecture** - Microservices with Docker
 - **Latest Technology Stack**:
-  - Python 3.13.4 + discord.py 2.5.2
+  - Python 3.13.5 + discord.py 2.5.2
   - FastAPI 0.115.14 for REST API
   - Next.js 15.2 + React 19.1.0 + TypeScript 5.8.3 for dashboard
   - PostgreSQL 17 + Redis 8 for data
