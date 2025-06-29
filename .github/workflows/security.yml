@@ -92,7 +92,7 @@ jobs:
         npx audit-ci --moderate || true
         
     - name: 📊 Upload security reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: security-reports
@@ -120,7 +120,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
       
     - name: 🏗️ Build Docker image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./${{ matrix.service }}
         file: ./${{ matrix.service }}/Dockerfile.dev

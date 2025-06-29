@@ -50,7 +50,7 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
         
     - name: 📦 Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
@@ -91,7 +91,7 @@ jobs:
         JWT_SECRET: test-secret-key
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         files: ./bot/coverage.xml,./api/coverage.xml
         flags: backend
@@ -142,7 +142,7 @@ jobs:
         pnpm build
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         files: ./dashboard/coverage/lcov.info
         flags: frontend
@@ -185,7 +185,7 @@ jobs:
         safety check --json --output safety-report.json || true
         
     - name: 📊 Upload security reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: security-reports
@@ -207,7 +207,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
       
     - name: 🤖 Build bot image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./bot
         file: ./bot/Dockerfile.dev
@@ -217,7 +217,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 🌐 Build API image  
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./api
         file: ./api/Dockerfile.dev
@@ -227,7 +227,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 💻 Build dashboard image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./dashboard
         file: ./dashboard/Dockerfile.dev

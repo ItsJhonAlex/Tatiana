@@ -87,7 +87,7 @@ jobs:
           type=semver,pattern={{major}}
           
     - name: 🏗️ Build and push
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: ./${{ matrix.service }}
         file: ./${{ matrix.service }}/Dockerfile
@@ -221,7 +221,7 @@ jobs:
         tar -czf tatiana-bot-${{ steps.changelog.outputs.tag_name }}.tar.gz -C release-assets .
         
     - name: 🎉 Create GitHub Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         name: "Tatiana Bot 2.0 - ${{ steps.changelog.outputs.tag_name }}"
         body_path: release_notes.md
