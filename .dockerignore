@@ -1,0 +1,309 @@
+# 🐳 Tatiana Bot 2.0 - Docker Ignore
+
+# ====================================
+# 🔒 Security & Environment
+# ====================================
+.env
+.env.*
+!.env.example
+secrets/
+*.key
+*.pem
+*.p12
+.secret
+
+# ====================================
+# 🐍 Python Development
+# ====================================
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.cover
+*.py,cover
+.hypothesis/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ====================================
+# 🟨 Node.js Development  
+# ====================================
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnpm-store/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Parcel-bundler cache
+.cache
+.parcel-cache
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# ====================================
+# 🗄️ Database & Cache
+# ====================================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Database backups & dumps
+*.sql
+*.backup
+*.dump
+database/data/
+database/backups/
+database/dumps/
+
+# ====================================
+# 📁 Files & Uploads
+# ====================================
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# User uploaded content
+uploads/
+temp/
+tmp/
+*.tmp
+
+# Generated files
+generated/
+*.generated.*
+
+# ====================================
+# 🧪 Testing & QA
+# ====================================
+# Test results
+test-results/
+test-reports/
+coverage/
+.nyc_output/
+
+# Jest
+/coverage/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Playwright
+playwright-report/
+
+# ====================================
+# 🔧 Development Tools
+# ====================================
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# GitHub
+.github/
+
+# Documentation (for production builds)
+docs/
+*.md
+!README.md
+
+# Development scripts
+scripts/
+Makefile
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+
+# ====================================
+# 🐳 Docker Development
+# ====================================
+# Docker files (keep production Dockerfiles)
+Dockerfile.dev
+docker-compose.dev.yml
+docker-compose.override.yml
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+# ====================================
+# 📊 Monitoring & Analytics
+# ====================================
+# Application insights
+ApplicationInsights.config
+
+# New Relic
+newrelic.ini
+
+# ====================================
+# 🎮 Specific to Bot Project
+# ====================================
+# Local config files
+config.local.json
+settings.local.json
+
+# Bot tokens and keys (extra security)
+*token*
+*key*
+*secret*
+
+# Local development databases
+*.local.db
+dev.db
+
+# Temporary bot files
+bot_cache/
+sessions/
+
+# ====================================
+# 📱 Mobile (future)
+# ====================================
+# React Native
+*.jks
+*.p8
+*.mobileprovision
+*.orig.*
+web-build/
+
+# iOS
+ios/Pods/
+
+# Android
+android/app/build/
+android/build/
+android/.gradle/
+*.keystore
+
+# ====================================
+# 📦 Build & Deployment
+# ====================================
+# Build artifacts
+*.tar.gz
+*.zip
+*.rar
+
+# Deployment configs
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# ====================================
+# 🧹 Misc
+# ====================================
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary files
+*~
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.tar
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+
+# Keep essential files for Docker builds
+!package.json
+!requirements.txt
+!pyproject.toml
+!Dockerfile
+!Dockerfile.prod 

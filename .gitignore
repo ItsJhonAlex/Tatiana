@@ -281,7 +281,6 @@ database/dumps/
 # ====================================
 # Docker files (keep Dockerfiles, ignore runtime files)
 docker-compose.override.yml
-.dockerignore
 
 # ====================================
 # 📱 Mobile Development (Future)

@@ -34,13 +34,13 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ```
                     ┌─────────────────────────────────────────────────────────┐
-                    │                   Users                                   │
+                    │                   Users                                 │
                     │  Discord Users  │  Web Dashboard  │  Mobile App         │
                     └─────────────────────────────────────────────────────────┘
                              │                │                 │
                     ┌─────────▼────────┐    ┌─▼──────────────┐  │
                     │   Discord API    │    │  Load Balancer │  │
-                    │     Gateway       │    │   (Nginx)      │  │
+                    │     Gateway      │    │    (Nginx)     │  │
                     └─────────┬────────┘    └─┬──────────────┘  │
                              │                │                 │
                     ┌─────────▼────────┐    ┌─▼──────────────┐  │
