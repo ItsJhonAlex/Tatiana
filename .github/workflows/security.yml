@@ -1,0 +1,189 @@
+name: 🔒 Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6 AM UTC
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  # 🔍 CodeQL Analysis
+  codeql-analysis:
+    name: 🔍 CodeQL Analysis
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        language: [ 'python', 'javascript' ]
+        
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        
+    - name: 🏗️ Autobuild
+      uses: github/codeql-action/autobuild@v3
+      
+    - name: 📊 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  # 🔒 Security Audit
+  security-audit:
+    name: 🔒 Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🟨 Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 📦 Install pnpm
+      run: npm install -g pnpm
+      
+    # Python security checks
+    - name: 🔒 Python security audit
+      run: |
+        # Install security tools
+        pip install bandit safety semgrep
+        
+        # Run bandit for security issues
+        bandit -r bot/ api/ -f json -o bandit-report.json || true
+        
+        # Check for known vulnerabilities
+        pip install -r bot/requirements.txt
+        safety check --json --output safety-bot-report.json || true
+        
+        pip install -r api/requirements.txt  
+        safety check --json --output safety-api-report.json || true
+        
+        # Run semgrep for security patterns
+        semgrep --config=auto bot/ api/ --json --output=semgrep-report.json || true
+        
+    # Node.js security checks
+    - name: 🔒 Node.js security audit
+      run: |
+        cd dashboard
+        pnpm install --frozen-lockfile
+        
+        # npm audit
+        pnpm audit --audit-level moderate --json > ../npm-audit-report.json || true
+        
+        # Check for known vulnerabilities
+        npx audit-ci --moderate || true
+        
+    - name: 📊 Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-*-report.json
+          semgrep-report.json
+          npm-audit-report.json
+
+  # 🐳 Docker Security Scan
+  docker-security:
+    name: 🐳 Docker Security
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    
+    strategy:
+      matrix:
+        service: [bot, api, dashboard]
+        
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐳 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: 🏗️ Build Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./${{ matrix.service }}
+        file: ./${{ matrix.service }}/Dockerfile.dev
+        tags: tatiana-${{ matrix.service }}:security-scan
+        load: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
+    - name: 🔍 Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'tatiana-${{ matrix.service }}:security-scan'
+        format: 'sarif'
+        output: 'trivy-${{ matrix.service }}.sarif'
+        
+    - name: 📊 Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-${{ matrix.service }}.sarif'
+
+  # 🔐 Secrets Scanning
+  secrets-scan:
+    name: 🔐 Secrets Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: 🔍 Run GitLeaks
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  # 📊 Security Summary
+  security-summary:
+    name: 📊 Security Summary
+    runs-on: ubuntu-latest
+    needs: [codeql-analysis, security-audit, docker-security, secrets-scan]
+    if: always()
+    
+    steps:
+    - name: ✅ Security checks passed
+      if: ${{ needs.codeql-analysis.result == 'success' && needs.security-audit.result == 'success' && needs.docker-security.result == 'success' && needs.secrets-scan.result == 'success' }}
+      run: |
+        echo "🎉 All security checks passed!"
+        echo "✅ CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
+        echo "✅ Security Audit: ${{ needs.security-audit.result }}"
+        echo "✅ Docker Security: ${{ needs.docker-security.result }}"
+        echo "✅ Secrets Scan: ${{ needs.secrets-scan.result }}"
+        
+    - name: ⚠️ Security issues found
+      if: ${{ needs.codeql-analysis.result != 'success' || needs.security-audit.result != 'success' || needs.docker-security.result != 'success' || needs.secrets-scan.result != 'success' }}
+      run: |
+        echo "⚠️ Security issues detected!"
+        echo "CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
+        echo "Security Audit: ${{ needs.security-audit.result }}"
+        echo "Docker Security: ${{ needs.docker-security.result }}"
+        echo "Secrets Scan: ${{ needs.secrets-scan.result }}"
+        echo ""
+        echo "Please review the security reports and fix any issues before merging."
+        echo "Security reports are available in the Actions artifacts." 

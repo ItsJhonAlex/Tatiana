@@ -1,0 +1,201 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: tatiana-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tatiana_db}
+      POSTGRES_USER: ${POSTGRES_USER:-tatiana_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tatiana_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - tatiana-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-tatiana_user} -d ${POSTGRES_DB:-tatiana_db}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: tatiana-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - tatiana-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: redis-server --appendonly yes
+
+  # FastAPI Web Service
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    container_name: tatiana-api
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-tatiana_user}:${POSTGRES_PASSWORD:-tatiana_password}@postgres:5432/${POSTGRES_DB:-tatiana_db}
+      - REDIS_URL=redis://redis:6379
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_ENVIRONMENT=development
+      - API_DEBUG=true
+      - JWT_SECRET=${JWT_SECRET}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - tatiana-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Discord Bot Service
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile.dev
+    container_name: tatiana-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-tatiana_user}:${POSTGRES_PASSWORD:-tatiana_password}@postgres:5432/${POSTGRES_DB:-tatiana_db}
+      - REDIS_URL=redis://redis:6379
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - API_BASE_URL=http://api:8000
+      - BOT_PREFIX=${BOT_PREFIX:-!}
+      - BOT_ENVIRONMENT=development
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./bot:/app
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    networks:
+      - tatiana-network
+
+  # Next.js Dashboard
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile.dev
+    container_name: tatiana-dashboard
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_WEBSOCKET_URL=ws://localhost:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./dashboard:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - api
+    networks:
+      - tatiana-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Reverse Proxy (Optional for development)
+  nginx:
+    image: nginx:alpine
+    container_name: tatiana-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - api
+      - dashboard
+    networks:
+      - tatiana-network
+    profiles:
+      - nginx
+
+  # Database Administration (Optional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: tatiana-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@tatiana-bot.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - tatiana-network
+    profiles:
+      - admin
+
+  # Redis Administration (Optional)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: tatiana-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - tatiana-network
+    profiles:
+      - admin
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  tatiana-network:
+    driver: bridge 

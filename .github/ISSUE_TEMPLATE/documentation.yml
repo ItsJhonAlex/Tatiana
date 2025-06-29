@@ -1,0 +1,51 @@
+name: 📚 Documentation Issue
+description: Report a documentation problem or suggest improvements
+title: "[DOCS] "
+labels: ["documentation"]
+assignees:
+  - ItsJhonAlex
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve our documentation!
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 📋 Issue Type
+      options:
+        - Error in existing documentation
+        - Missing documentation
+        - Outdated documentation
+        - Clarity improvement
+        - Translation
+        - Missing example
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: 📍 Location
+      description: Where is the problem? (URL, file, section)
+      placeholder: "docs/README.md, line 45"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Problem Description
+      description: Describe what's wrong or what's missing
+      placeholder: "The documentation says X but should say Y..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 💡 Improvement Suggestion
+      description: How would you improve this documentation?
+      placeholder: "I suggest adding... / Changing to..." 

@@ -1,0 +1,91 @@
+version: 2
+
+updates:
+  # 🐍 Python dependencies - Bot
+  - package-ecosystem: "pip"
+    directory: "/bot"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    assignees:
+      - "ItsJhonAlex"
+    labels:
+      - "dependencies"
+      - "python"
+      - "bot"
+    commit-message:
+      prefix: "chore(bot)"
+      include: "scope"
+    
+  # 🐍 Python dependencies - API
+  - package-ecosystem: "pip"
+    directory: "/api"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    assignees:
+      - "ItsJhonAlex"
+    labels:
+      - "dependencies"
+      - "python"
+      - "api"
+    commit-message:
+      prefix: "chore(api)"
+      include: "scope"
+    
+  # 🟨 Node.js dependencies - Dashboard
+  - package-ecosystem: "npm"
+    directory: "/dashboard"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    assignees:
+      - "ItsJhonAlex"
+    labels:
+      - "dependencies"
+      - "javascript"
+      - "dashboard"
+    commit-message:
+      prefix: "chore(dashboard)"
+      include: "scope"
+    versioning-strategy: increase
+    
+  # 🐳 Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    assignees:
+      - "ItsJhonAlex"
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "chore(docker)"
+      include: "scope"
+    
+  # 🔧 GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    assignees:
+      - "ItsJhonAlex"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope" 

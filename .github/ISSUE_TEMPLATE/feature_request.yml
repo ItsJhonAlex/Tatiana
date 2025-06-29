@@ -1,0 +1,61 @@
+name: ✨ Feature Request
+description: Suggest a new functionality for Tatiana Bot 2.0
+title: "[FEATURE] "
+labels: ["enhancement", "needs-discussion"]
+assignees:
+  - ItsJhonAlex
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Help us understand your idea.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I have searched for similar features and found no duplicates
+          required: true
+        - label: This feature would be useful for the community
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Related Component
+      options:
+        - Discord Bot Commands
+        - Web Dashboard
+        - Economy System
+        - Pokemon System
+        - Moderation System
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problem / Need
+      description: What problem would this feature solve?
+      placeholder: "I'm frustrated when..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: "I'd like the bot to be able to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: 📝 Examples / Use Cases
+      description: Specific examples of how this would be used
+      placeholder: "Example: A user executes `/command` and..." 

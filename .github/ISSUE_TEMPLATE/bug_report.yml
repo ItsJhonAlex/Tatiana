@@ -1,0 +1,129 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with Tatiana Bot 2.0
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees:
+  - ItsJhonAlex
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! This information will help us resolve the issue quickly.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checklist
+      description: Please confirm that you have verified the following
+      options:
+        - label: I have searched for similar issues and found no duplicates
+          required: true
+        - label: I have read the documentation and didn't find the answer
+          required: true
+        - label: This is a real bug and not a configuration error
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📋 Bug Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what's wrong...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Steps to reproduce the issue
+      placeholder: |
+        1. Go to '...'
+        2. Execute command '...'
+        3. Observe the error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: What you expected to happen
+      placeholder: Describe the expected behavior...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: What actually happened
+      placeholder: Describe what actually happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📄 Logs / Screenshots
+      description: Any error logs, screenshots, or additional information
+      placeholder: Paste error logs here or add screenshots...
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🧩 Affected Component
+      description: Which part of the bot is affected?
+      options:
+        - Discord Bot
+        - Web API
+        - Dashboard
+        - Database
+        - AI (Gemini)
+        - Economy System
+        - Pokemon System
+        - Cards System
+        - Moderation
+        - Other / Unknown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 Severity
+      description: How critical is this bug?
+      options:
+        - Critical (Bot doesn't work)
+        - High (Major feature broken)
+        - Medium (Feature partially broken)
+        - Low (Minor issue)
+    validations:
+      required: true
+
+  - type: input
+    id: bot_version
+    attributes:
+      label: 🤖 Bot Version
+      description: What version of the bot are you using?
+      placeholder: "v2.0.1"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🖥️ Environment
+      description: Information about your environment
+      placeholder: |
+        - OS: Ubuntu 22.04
+        - Python: 3.12.1
+        - Discord.py: 2.4.0
+        - Docker: 24.0.7
+        - Browser (for dashboard): Chrome 120
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Any other information that may be useful
+      placeholder: Add any additional context here... 
