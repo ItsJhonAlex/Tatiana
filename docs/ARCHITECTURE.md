@@ -78,7 +78,7 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ### 1. Discord Bot Service
 
-**Technology**: Python 3.12 + discord.py 2.4+  
+**Technology**: Python 3.13.4 + discord.py 2.5.2  
 **Responsibility**: Handle Discord interactions and bot commands
 
 ```python
@@ -123,7 +123,7 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ### 2. Web API Service
 
-**Technology**: FastAPI 0.104+ with async/await  
+**Technology**: FastAPI 0.115.14 with async/await  
 **Responsibility**: REST API for web dashboard and mobile apps
 
 ```python
@@ -196,7 +196,7 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ### 3. Web Dashboard
 
-**Technology**: Next.js 14 + React 18 + TypeScript  
+**Technology**: Next.js 15.2 + React 19.1.0 + TypeScript 5.8.3  
 **Responsibility**: User interface for bot management and analytics
 
 ```typescript
@@ -281,7 +281,7 @@ Tatiana Bot 2.0 follows a modern microservices architecture with clear separatio
 
 ### 5. Database Layer
 
-**Technology**: PostgreSQL 15 + Redis 7  
+**Technology**: PostgreSQL 17 + Redis 8  
 **Responsibility**: Data persistence and caching
 
 #### PostgreSQL Schema:

@@ -1,46 +1,91 @@
-# 🤖 Tatiana Bot 2.0 - Discord AI Bot with Web Dashboard
+# 🎮 Tatiana Bot 2.0
+## The Most Advanced Discord Bot for Modern Communities
 
-<div align="center">
+[![Python](https://img.shields.io/badge/Python-3.13.4-blue.svg)](https://python.org)
+[![UV](https://img.shields.io/badge/UV-package%20manager-green.svg)](https://github.com/astral-sh/uv)
+[![Discord.py](https://img.shields.io/badge/Discord.py-2.5.2-blue.svg)](https://discordpy.readthedocs.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.14-green.svg)](https://fastapi.tiangolo.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-22%20LTS-green.svg)](https://nodejs.org/)
+[![PNPM](https://img.shields.io/badge/PNPM-package%20manager-orange.svg)](https://pnpm.io/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.2-black.svg)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-blue.svg)](https://react.dev/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue.svg)](https://postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-8-red.svg)](https://redis.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-![Tatiana Bot Banner](https://img.shields.io/badge/Tatiana%20Bot-2.0-purple?style=for-the-badge&logo=discord)
-![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green?style=for-the-badge&logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?style=for-the-badge&logo=postgresql)
-
-A next-generation Discord bot with AI capabilities, advanced moderation, gamification systems, and a comprehensive web dashboard for administration.
-
-[🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [🏗️ Architecture](#-architecture) • [🤝 Contributing](#-contributing)
-
-</div>
+> **🚀 A complete rewrite of Tatiana Bot with cutting-edge technology, AI integration, and modern architecture.**
 
 ---
 
-## ✨ Features
+## 🌟 Overview
 
-### 🤖 Discord Bot
-- **AI-Powered Conversations**: Intelligent responses using Gemini AI
-- **Advanced Moderation**: Automated spam detection, content filtering, and moderation tools
-- **Economy System**: Virtual currency, daily rewards, gambling, and leaderboards
-- **Gamification**: Pokémon catching, trading cards, inventory management
-- **Multi-Language Support**: Configurable per-server language settings
-- **Slash Commands**: Modern Discord slash command support
+**Tatiana Bot 2.0** is a revolutionary Discord bot that combines the power of artificial intelligence, modern web technologies, and microservices architecture to deliver an unparalleled experience for Discord communities. Built from the ground up with scalability, performance, and user experience in mind.
 
-### 🌐 Web Dashboard
-- **Server Management**: Configure bot settings, manage channels and roles
-- **User Management**: View profiles, economy stats, and moderation history
-- **Real-time Analytics**: Bot usage statistics, command analytics, user engagement
-- **Moderation Panel**: Review logs, quick actions, AutoMod configuration
-- **AI Management**: Conversation history, prompt management, token usage tracking
-- **Mobile Responsive**: Works perfectly on desktop, tablet, and mobile
+### ✨ What Makes Tatiana Bot 2.0 Special?
 
-### 🛠️ Technical Features
-- **Microservices Architecture**: Scalable and maintainable design
-- **Real-time Updates**: WebSocket connections for live dashboard updates
-- **High Performance**: Optimized for speed with caching and connection pooling
-- **Security First**: JWT authentication, OAuth2, role-based access control
-- **Docker Support**: Containerized deployment with Docker Compose
-- **Comprehensive Testing**: Unit tests, integration tests, and E2E testing
+- 🤖 **AI-Powered Conversations** with Google Gemini AI
+- 🎮 **85+ Commands** across 11 specialized categories
+- 💰 **Virtual Economy System** with transactions and rewards
+- 🐾 **Pokémon Catching & Trading** system
+- 🃏 **Yu-Gi-Oh Card Collection** system
+- 🛡️ **Advanced Moderation** with AutoMod capabilities
+- 🌐 **Real-time Web Dashboard** with analytics
+- 🚀 **Modern Microservices Architecture**
+- 📱 **Mobile-Responsive Design**
+- 🔧 **Extensive Customization Options**
+
+---
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Discord Bot   │    │   FastAPI       │    │   Next.js       │
+│   (Python 3.13)│◄──►│   Backend       │◄──►│   Dashboard     │
+│   discord.py    │    │   (0.115.14)    │    │   (v15.2)       │
+│   2.5.2         │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         │              ┌─────────────────┐              │
+         │              │   PostgreSQL    │              │
+         └──────────────►│   Database      │◄─────────────┘
+                        │   (v17)         │
+                        └─────────────────┘
+                                 │
+                        ┌─────────────────┐
+                        │   Redis Cache   │
+                        │   (v8)          │
+                        └─────────────────┘
+```
+
+### 🧩 Technology Stack
+
+#### **Backend Services**
+- **Python 3.13.4** - Latest stable Python release
+- **discord.py 2.5.2** - Modern Discord API wrapper
+- **FastAPI 0.115.14** - High-performance API framework
+- **PostgreSQL 17** - Advanced relational database
+- **Redis 8** - In-memory data store
+
+#### **Frontend Dashboard**
+- **Next.js 15.2** - React framework with App Router
+- **React 19.1.0** - Latest React with new features
+- **TypeScript 5.8.3** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **Shadcn/ui** - Modern component library
+
+#### **AI & External Services**
+- **Google Gemini AI** - Advanced conversational AI
+- **OpenWeather API** - Weather information
+- **CoinGecko API** - Cryptocurrency data
+- **Pokémon API** - Pokémon data and images
+
+#### **DevOps & Infrastructure**
+- **Docker & Docker Compose** - Containerization
+- **GitHub Actions** - CI/CD pipeline
+- **Nginx** - Reverse proxy and load balancer
+- **Redis** - Caching and session management
 
 ---
 
@@ -48,313 +93,145 @@ A next-generation Discord bot with AI capabilities, advanced moderation, gamific
 
 ### Prerequisites
 
-- **Python 3.12+** (for bot and API)
-- **Node.js 18+** (for dashboard)
-- **PostgreSQL 15+** (primary database)
-- **Redis 7+** (caching and sessions)
-- **Docker & Docker Compose** (recommended)
+- **Docker Desktop** 20.10+
+- **Node.js** 22 LTS+ (for local development)
+- **Python** 3.13+ (for local development)
+- **UV** (Python package manager - auto-installed)
+- **PNPM** (Node.js package manager)
+- **Git** 2.30+
 
-### 1. Clone the Repository
+### 🐳 One-Command Setup (Recommended)
 
 ```bash
-git clone https://github.com/yourusername/tatiana-bot-2.0.git
+# Clone the repository
+git clone https://github.com/ItsJhonAlex/tatiana-bot-2.0.git
 cd tatiana-bot-2.0
-```
 
-### 2. Environment Setup
-
-Copy the environment template and configure your variables:
-
-```bash
+# Setup environment variables
 cp .env.example .env
-```
 
-Edit `.env` with your configuration:
+# Edit .env with your configuration
+nano .env
 
-```env
-# Bot Configuration
-DISCORD_TOKEN=your_discord_bot_token
-GEMINI_API_KEY=your_gemini_api_key
-BOT_PREFIX=!
-
-# Database
-DATABASE_URL=postgresql://user:password@localhost:5432/tatiana
-REDIS_URL=redis://localhost:6379
-
-# Web Dashboard
-NEXTAUTH_SECRET=your_nextauth_secret
-NEXTAUTH_URL=http://localhost:3000
-DISCORD_CLIENT_ID=your_discord_client_id
-DISCORD_CLIENT_SECRET=your_discord_client_secret
-
-# API Configuration
-API_HOST=0.0.0.0
-API_PORT=8000
-JWT_SECRET=your_jwt_secret
-```
-
-### 3. Docker Setup (Recommended)
-
-```bash
-# Start all services with Docker Compose
+# Start all services
 docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
 ```
 
-### 4. Manual Setup (Alternative)
+### 📱 Access Your Services
 
-#### Backend Setup
-
-```bash
-# Navigate to bot directory
-cd bot
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run database migrations
-alembic upgrade head
-
-# Start the bot
-python main.py
-```
-
-```bash
-# Navigate to API directory
-cd api
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Start the API server
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-#### Frontend Setup
-
-```bash
-# Navigate to dashboard directory
-cd dashboard
-
-# Install Node.js dependencies
-npm install
-# or with pnpm (preferred)
-pnpm install
-
-# Start development server
-npm run dev
-# or
-pnpm dev
-```
-
-### 5. Access the Application
-
+- **Discord Bot**: Automatically connects to Discord
 - **Web Dashboard**: http://localhost:3000
 - **API Documentation**: http://localhost:8000/docs
-- **Bot Status**: Check your Discord server
+- **Database**: localhost:5432
+- **Redis**: localhost:6379
+
+---
+
+## 🎯 Key Features
+
+### 🤖 AI-Powered Interactions
+- **Natural Language Processing** with Google Gemini
+- **Context-Aware Responses** 
+- **Multi-Language Support** (Spanish/English)
+- **Smart Command Recognition**
+
+### 🎮 Gaming Systems
+- **Pokémon Catching** - Catch, trade, and battle
+- **Card Collection** - Yu-Gi-Oh card system
+- **Virtual Economy** - Earn and spend virtual currency
+- **Mini-Games** - Interactive entertainment
+
+### 🛡️ Moderation Tools
+- **AutoMod System** - Automated content filtering
+- **User Management** - Kicks, bans, timeouts
+- **Role Management** - Dynamic role assignment
+- **Audit Logs** - Complete action tracking
+
+### 📊 Analytics & Insights
+- **Real-time Statistics** - Server metrics and usage
+- **User Activity Tracking** - Engagement analytics
+- **Command Usage Analytics** - Performance insights
+- **Custom Dashboards** - Personalized views
 
 ---
 
 ## 📚 Documentation
 
-### 📋 Project Documentation
-- [📋 Requirements Specification](docs/REQUIREMENTS.md) - Functional and non-functional requirements
-- [🏗️ System Architecture](docs/ARCHITECTURE.md) - Detailed system architecture and components
-- [🛠️ Technical Specification](docs/TECHNICAL_SPECIFICATION.md) - Technical details and specifications
+### 📖 Complete Documentation
+- [📋 **Project Summary**](docs/PROJECT_SUMMARY.md) - High-level overview
+- [🏗️ **Architecture Guide**](docs/ARCHITECTURE.md) - System design details
+- [⚡ **Quick Start**](docs/QUICK_START.md) - Get up and running fast
+- [📋 **Requirements**](docs/REQUIREMENTS.md) - System requirements
+- [🔧 **Technical Specs**](docs/TECHNICAL_SPECIFICATION.md) - Detailed specifications
 
-### 🔧 Development Guides
-- [🚀 Development Setup](docs/DEVELOPMENT_SETUP.md) - Detailed development environment setup
-- [📦 Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
-- [🧪 Testing Guide](docs/TESTING.md) - Testing strategies and guidelines
-- [🔒 Security Guide](docs/SECURITY.md) - Security best practices and implementation
+### 🛠️ Development Guides
+- [🚀 **Implementation Plan**](docs/IMPLEMENTATION_PLAN.md) - Development roadmap
+- [📦 **Migration Guide**](docs/MIGRATION_GUIDE.md) - Upgrade from v1.0
+- [✅ **Roadmap Checklist**](docs/ROADMAP_CHECKLIST.md) - Progress tracking
+- [🗺️ **Development Roadmap**](docs/DEVELOPMENT_ROADMAP.md) - Feature timeline
 
-### 📖 API Documentation
-- [🌐 REST API Reference](docs/API_REFERENCE.md) - Complete API endpoint documentation
-- [🔌 WebSocket Events](docs/WEBSOCKET_EVENTS.md) - Real-time event documentation
-- [🔑 Authentication](docs/AUTHENTICATION.md) - Authentication and authorization guide
-
----
-
-## 🏗️ Architecture
-
-### System Overview
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Discord Bot   │    │   Web Dashboard │    │   Admin Panel   │
-│   (Python)      │    │   (Next.js)     │    │   (React)       │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         └───────────────────────┼───────────────────────┘
-                                 │
-                    ┌─────────────────┐
-                    │   API Gateway   │
-                    │   (FastAPI)     │
-                    └─────────────────┘
-                                 │
-                ┌────────────────┼────────────────┐
-                │                │                │
-    ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-    │   PostgreSQL    │ │     Redis       │ │   Gemini AI     │
-    │   (Primary DB)  │ │   (Cache/Queue) │ │   (AI Service)  │
-    └─────────────────┘ └─────────────────┘ └─────────────────┘
-```
-
-### Technology Stack
-
-**Backend:**
-- **Discord Bot**: Python 3.12 + discord.py 2.4+
-- **Web API**: FastAPI 0.104+ with async/await
-- **Database**: PostgreSQL 15 + Redis 7
-- **AI**: Google Gemini AI
-
-**Frontend:**
-- **Framework**: Next.js 14 (App Router)
-- **UI**: Tailwind CSS + Shadcn/UI
-- **State**: Zustand + TanStack Query
-- **Real-time**: WebSocket integration
-
-**DevOps:**
-- **Containerization**: Docker + Docker Compose
-- **Database**: PostgreSQL with migrations
-- **Caching**: Redis for performance
-- **Monitoring**: Structured logging
+### 📖 Reference Materials
+- [✨ **Features Overview**](docs/FEATURES.md) - Complete feature list
+- [⚡ **Commands Reference**](docs/COMMANDS_REFERENCE.md) - All bot commands
+- [📄 **Commands List**](COMMANDS.md) - Quick command reference
 
 ---
 
 ## 🛠️ Development
 
-### Project Structure
-
-```
-tatiana-bot-2.0/
-├── bot/                    # Discord bot service
-│   ├── cogs/              # Command modules
-│   ├── services/          # Business logic
-│   ├── models/            # Data models
-│   └── utils/             # Helper functions
-├── api/                   # FastAPI web service
-│   ├── routers/           # API routes
-│   ├── services/          # Business logic
-│   ├── models/            # Pydantic models
-│   └── middleware/        # Custom middleware
-├── dashboard/             # Next.js web dashboard
-│   ├── src/app/           # App Router pages
-│   ├── src/components/    # React components
-│   ├── src/hooks/         # Custom hooks
-│   └── src/services/      # API services
-├── docs/                  # Documentation
-├── docker/                # Docker configurations
-├── database/              # Database migrations
-└── scripts/               # Utility scripts
-```
-
-### Development Principles
-
-- **Modular Design**: Keep files small (100-200 lines max)
-- **Single Responsibility**: One function per file/class
-- **Type Safety**: TypeScript for frontend, type hints for Python
-- **Error Handling**: Comprehensive error handling throughout
-- **Testing**: Unit tests, integration tests, E2E tests
-- **Documentation**: Code comments in English, docs in English/Spanish
-
-### Code Quality
-
-- **Linting**: ESLint (TypeScript), Black (Python)
-- **Formatting**: Prettier (TypeScript), Black (Python)
-- **Pre-commit Hooks**: Automated code quality checks
-- **Type Checking**: mypy (Python), TypeScript strict mode
-
----
-
-## 🧪 Testing
-
-### Running Tests
+### 🏃‍♂️ Local Development Setup
 
 ```bash
-# Backend tests
-cd bot && python -m pytest
-cd api && python -m pytest
+# Backend Development
+cd api
+uv venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+uv pip install -r requirements.txt
+uvicorn main:app --reload
 
-# Frontend tests
-cd dashboard && npm test
-# or
-cd dashboard && pnpm test
+# Frontend Development
+cd dashboard
+pnpm install
+pnpm dev
 
-# E2E tests
-cd dashboard && npm run test:e2e
-# or
-cd dashboard && pnpm test:e2e
+# Bot Development
+cd bot
+uv venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+uv pip install -r requirements.txt
+python main.py
 ```
 
-### Test Coverage
-
-- **Backend**: >80% coverage for critical components
-- **Frontend**: >70% coverage for components and hooks
-- **Integration**: API endpoint testing
-- **E2E**: Critical user journeys
-
----
-
-## 📊 Performance
-
-### Targets
-
-- **Bot Response Time**: <200ms (95th percentile)
-- **AI Response Time**: <3 seconds (95th percentile)
-- **Dashboard Load Time**: <2 seconds (95th percentile)
-- **API Response Time**: <100ms (95th percentile)
-
-### Optimization
-
-- **Database**: Connection pooling, optimized queries
-- **Caching**: Redis for frequently accessed data
-- **Frontend**: Code splitting, lazy loading, optimized bundles
-- **CDN**: Static asset delivery optimization
-
----
-
-## 🔒 Security
-
-### Implementation
-
-- **Authentication**: Discord OAuth2 + JWT tokens
-- **Authorization**: Role-based access control (RBAC)
-- **Data Protection**: Encryption at rest and in transit
-- **Input Validation**: Comprehensive input sanitization
-- **Rate Limiting**: API and bot command rate limiting
-
-### Best Practices
-
-- **Environment Variables**: Sensitive data in env vars
-- **Secret Management**: Secure secret storage
-- **HTTPS**: All external communications encrypted
-- **Audit Logging**: Security event logging
-
----
-
-## 🚀 Deployment
-
-### Production Deployment
+### 🧪 Testing
 
 ```bash
-# Production with Docker Compose
+# Backend Tests
+cd api
+source .venv/bin/activate
+pytest tests/ -v --cov
+
+# Frontend Tests
+cd dashboard
+pnpm test
+pnpm test:e2e
+
+# Bot Tests
+cd bot
+source .venv/bin/activate
+pytest tests/ -v
+```
+
+### 📦 Building for Production
+
+```bash
+# Build all services
+docker-compose -f docker-compose.prod.yml build
+
+# Deploy with optimizations
 docker-compose -f docker-compose.prod.yml up -d
-
-# Manual deployment
-./scripts/deploy.sh production
 ```
-
-### Environment Configuration
-
-- **Development**: Local development with hot reload
-- **Staging**: Pre-production testing environment
-- **Production**: High-availability production setup
 
 ---
 
@@ -362,68 +239,52 @@ docker-compose -f docker-compose.prod.yml up -d
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-### Development Workflow
+### 📝 Development Standards
+- **Code Quality**: 80%+ test coverage
+- **File Limits**: 200 lines max (150 for React components)
+- **Commit Format**: Conventional Commits
+- **Language**: English for code comments
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Commit Convention
-
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
-
-```bash
-feat(bot): add new economy command
-fix(api): resolve authentication issue
-docs: update README with setup instructions
-style: format code with prettier
-refactor(dashboard): restructure components
-test: add unit tests for auth service
-chore: update dependencies
-```
-
----
-
-## 📞 Support
-
-### Community
-
-- **Discord Server**: [Join our community](https://discord.gg/your-server)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/tatiana-bot-2.0/issues)
-- **Documentation**: [Read our docs](https://tatiana-bot-docs.com)
-
-### Contact
-
-- **Email**: support@tatiana-bot.com
-- **Discord**: @YourUsername#1234
-- **Twitter**: [@TatianaBot](https://twitter.com/tatianabot)
+### 🐛 Bug Reports & 💡 Feature Requests
+- Use our [Issue Templates](.github/ISSUE_TEMPLATE/)
+- Follow the [Code of Conduct](CODE_OF_CONDUCT.md)
+- Check existing issues before creating new ones
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Team
+
+**Lead Developer**: Jonathan Alejandro Rodríguez López ([@ItsJhonAlex](https://github.com/ItsJhonAlex))
 
 ---
 
 ## 🙏 Acknowledgments
 
-- **Discord.py Community**: For the amazing Discord library
-- **FastAPI Team**: For the incredible web framework
-- **Next.js Team**: For the powerful React framework
-- **Google**: For the Gemini AI API
-- **All Contributors**: Who make this project possible
+- **Discord.py Community** - Excellent library support
+- **FastAPI Team** - Amazing web framework
+- **Next.js Team** - Incredible React framework
+- **Vercel** - Hosting and deployment platform
+- **Google** - Gemini AI integration
+- **Open Source Community** - Inspiration and tools
+
+---
+
+## 📞 Support
+
+- **Documentation**: [docs/](docs/)
+- **Issues**: [GitHub Issues](https://github.com/ItsJhonAlex/tatiana-bot-2.0/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/ItsJhonAlex/tatiana-bot-2.0/discussions)
+- **Email**: support@tatiana-bot.com
 
 ---
 
 <div align="center">
-
-**Made with ❤️ by the Tatiana Bot Team**
-
-⭐ **Star us on GitHub** — it helps!
-
-[🏠 Homepage](https://tatiana-bot.com) • [📚 Docs](https://docs.tatiana-bot.com) • [💬 Discord](https://discord.gg/tatiana)
-
+  <p><strong>Built with ❤️ for the Discord community</strong></p>
+  <p>© 2025 Tatiana Bot 2.0 - All rights reserved</p>
 </div> 

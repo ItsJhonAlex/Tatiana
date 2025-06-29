@@ -10,6 +10,10 @@ Before starting, make sure you have:
 
 ### Required Software
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- [Node.js 22 LTS](https://nodejs.org/) for frontend development
+- [Python 3.13+](https://python.org/) for backend development
+- [UV](https://github.com/astral-sh/uv) for Python package management (auto-installed)
+- [PNPM](https://pnpm.io/) for Node.js package management
 - [Git](https://git-scm.com/) for version control
 - A code editor (VS Code recommended)
 
@@ -20,6 +24,22 @@ Before starting, make sure you have:
 
 ### API Keys
 - [Google Gemini AI API Key](https://makersuite.google.com/app/apikey) for AI functionality
+
+### Tools Installation
+```bash
+# Install UV for Python (if not installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.cargo/env
+
+# Install PNPM for Node.js (if not installed)
+npm install -g pnpm
+
+# Verify installations
+uv --version
+pnpm --version
+node --version  # Should be 22+
+python3 --version  # Should be 3.13+
+```
 
 ## 🚀 Quick Setup (5 minutes)
 
@@ -145,6 +165,48 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 # View development logs
 docker-compose logs -f --tail=100
+```
+
+## 💻 Local Development (Alternative to Docker)
+
+### Backend Services Setup
+```bash
+# Bot service
+cd bot
+uv venv
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
+python main.py
+
+# API service (new terminal)
+cd api
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Frontend Setup
+```bash
+# Dashboard (new terminal)
+cd dashboard
+pnpm install
+pnpm dev
+```
+
+### Local Testing
+```bash
+# Run tests for bot
+cd bot && source .venv/bin/activate && pytest tests/ -v
+
+# Run tests for API
+cd api && source .venv/bin/activate && pytest tests/ -v
+
+# Run tests for dashboard
+cd dashboard && pnpm test
 ```
 
 ## 🛠️ Common Issues & Solutions

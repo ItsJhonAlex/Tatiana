@@ -8,21 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### 🎉 Preparing for v2.0.0
-- Initial project setup
-- Complete documentation
-- System architecture
-- GitHub configuration
+- Initial project setup with latest technology versions
+- Complete documentation translated to English
+- Modern system architecture with microservices
+- Comprehensive GitHub configuration with CI/CD
+- Updated all dependencies to latest stable versions (January 2025)
+- Modern package managers: UV for Python, PNPM for Node.js
+- Optimized CI/CD pipelines with faster builds and testing
 
 ## [2.0.0] - 2025-01-XX
 
 ### ✨ Added
 - **Initial Project** - Complete setup of Tatiana Bot 2.0
 - **Modern Architecture** - Microservices with Docker
-- **Updated Technology Stack**:
-  - Python 3.12 + discord.py 2.4+
-  - FastAPI 0.104+ for REST API
-  - Next.js 14 + React 18 + TypeScript for dashboard
-  - PostgreSQL 15 + Redis 7 for data
+- **Latest Technology Stack**:
+  - Python 3.13.4 + discord.py 2.5.2
+  - FastAPI 0.115.14 for REST API
+  - Next.js 15.2 + React 19.1.0 + TypeScript 5.8.3 for dashboard
+  - PostgreSQL 17 + Redis 8 for data
   - Docker + Docker Compose for deployment
 - **AI Integration** - Google Gemini AI for conversations
 - **Economy System** - Virtual currency and transactions

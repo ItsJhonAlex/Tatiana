@@ -7,8 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  PYTHON_VERSION: '3.12'
-  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.13.4'
+  NODE_VERSION: '22'
 
 jobs:
   # 🏗️ Build and Test
@@ -37,8 +37,10 @@ jobs:
     # Backend tests
     - name: 🧪 Test backend
       run: |
-        cd bot && pip install -r requirements.txt && python -m pytest tests/ -v
-        cd ../api && pip install -r requirements.txt && python -m pytest tests/ -v
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        cd bot && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt && python -m pytest tests/ -v
+        cd ../api && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt && python -m pytest tests/ -v
         
     # Frontend tests
     - name: 🧪 Test frontend
@@ -87,7 +89,7 @@ jobs:
           type=semver,pattern={{major}}
           
     - name: 🏗️ Build and push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v5
       with:
         context: ./${{ matrix.service }}
         file: ./${{ matrix.service }}/Dockerfile
@@ -221,7 +223,7 @@ jobs:
         tar -czf tatiana-bot-${{ steps.changelog.outputs.tag_name }}.tar.gz -C release-assets .
         
     - name: 🎉 Create GitHub Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v1
       with:
         name: "Tatiana Bot 2.0 - ${{ steps.changelog.outputs.tag_name }}"
         body_path: release_notes.md

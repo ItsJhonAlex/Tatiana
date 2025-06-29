@@ -37,7 +37,7 @@ updates:
       prefix: "chore(api)"
       include: "scope"
     
-  # 🟨 Node.js dependencies - Dashboard
+  # 🟨 Node.js dependencies - Dashboard (using PNPM)
   - package-ecosystem: "npm"
     directory: "/dashboard"
     schedule:
@@ -51,6 +51,7 @@ updates:
       - "dependencies"
       - "javascript"
       - "dashboard"
+      - "pnpm"
     commit-message:
       prefix: "chore(dashboard)"
       include: "scope"

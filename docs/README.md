@@ -89,14 +89,18 @@ Welcome to the comprehensive documentation for **Tatiana Bot 2.0**! This directo
 ## 🛠️ Technology Stack Overview
 
 ### **Backend Services**
-- **Discord Bot**: Python 3.12 + discord.py 2.4+
-- **Web API**: FastAPI 0.104+ with async/await
-- **Database**: PostgreSQL 15 + Redis 7
+- **Discord Bot**: Python 3.13.4 + discord.py 2.5.2
+- **Package Manager**: UV (ultra-fast Python package management)
+- **Web API**: FastAPI 0.115.14 with async/await
+- **Database**: PostgreSQL 17 + Redis 8
 - **AI**: Google Gemini AI integration
 
 ### **Frontend**
-- **Framework**: Next.js 14 with App Router
-- **UI**: Tailwind CSS + Shadcn/UI components
+- **Framework**: Next.js 15.2 with App Router
+- **Runtime**: Node.js 22 LTS
+- **Package Manager**: PNPM (fast, disk space efficient)
+- **UI**: React 19.1.0 + TypeScript 5.8.3
+- **Styling**: Tailwind CSS + Shadcn/UI components
 - **State**: Zustand + TanStack Query
 - **Real-time**: WebSocket integration
 

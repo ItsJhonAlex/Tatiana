@@ -50,12 +50,12 @@ jobs:
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'
+        python-version: '3.13.4'
         
     - name: 🟨 Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '22'
         
     - name: 📦 Install pnpm
       run: npm install -g pnpm
@@ -63,18 +63,26 @@ jobs:
     # Python security checks
     - name: 🔒 Python security audit
       run: |
+        # Install UV for faster package management
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        
         # Install security tools
-        pip install bandit safety semgrep
+        uv tool install bandit
+        uv tool install safety
+        uv tool install semgrep
         
         # Run bandit for security issues
         bandit -r bot/ api/ -f json -o bandit-report.json || true
         
         # Check for known vulnerabilities
-        pip install -r bot/requirements.txt
-        safety check --json --output safety-bot-report.json || true
+        cd bot && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt
+        safety check --json --output ../safety-bot-report.json || true
+        cd ..
         
-        pip install -r api/requirements.txt  
-        safety check --json --output safety-api-report.json || true
+        cd api && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt  
+        safety check --json --output ../safety-api-report.json || true
+        cd ..
         
         # Run semgrep for security patterns
         semgrep --config=auto bot/ api/ --json --output=semgrep-report.json || true
@@ -92,7 +100,7 @@ jobs:
         npx audit-ci --moderate || true
         
     - name: 📊 Upload security reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       if: always()
       with:
         name: security-reports
@@ -120,7 +128,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
       
     - name: 🏗️ Build Docker image
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v5
       with:
         context: ./${{ matrix.service }}
         file: ./${{ matrix.service }}/Dockerfile.dev

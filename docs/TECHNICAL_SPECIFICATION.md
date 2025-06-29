@@ -39,23 +39,25 @@ Tatiana Bot 2.0 is a next-generation Discord bot featuring AI-powered conversati
 ## 🛠️ Technology Stack
 
 ### Backend Services
-- **Discord Bot**: Python 3.12+ with discord.py 2.4+
-- **Web API**: FastAPI 0.104+ (async/await support)
+- **Discord Bot**: Python 3.13.4 with discord.py 2.5.2
+- **Web API**: FastAPI 0.115.14 (async/await support)
 - **Authentication**: JWT tokens with refresh mechanism
 - **Task Queue**: Celery with Redis broker
 - **WebSocket**: For real-time dashboard updates
 
 ### Frontend
-- **Framework**: Next.js 14+ (App Router)
+- **Framework**: Next.js 15.2 (App Router)
 - **UI Library**: Tailwind CSS + Shadcn/UI components
 - **State Management**: Zustand for global state
 - **API Client**: TanStack Query (React Query) for data fetching
 - **Real-time**: WebSocket client for live updates
 - **Charts**: Recharts for analytics visualization
+- **React**: React 19.1.0 with latest features
+- **TypeScript**: TypeScript 5.8.3 for type safety
 
 ### Database & Cache
-- **Primary Database**: PostgreSQL 15+ with asyncpg
-- **Cache Layer**: Redis 7+ for sessions and temporary data
+- **Primary Database**: PostgreSQL 17 with asyncpg
+- **Cache Layer**: Redis 8 for sessions and temporary data
 - **ORM**: SQLAlchemy 2.0+ with Alembic migrations
 - **Connection Pooling**: asyncpg connection pools
 

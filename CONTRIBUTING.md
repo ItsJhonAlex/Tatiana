@@ -62,10 +62,11 @@ Thank you for your interest in contributing to Tatiana Bot 2.0! This guide will 
 
 ```bash
 # Check required versions
-python3 --version    # 3.12+
-node --version       # 18+
+python3 --version    # 3.13+
+node --version       # 22+
 docker --version     # 20+
-pnpm --version      # 8+
+pnpm --version      # 9+
+uv --version        # Latest
 ```
 
 ### ⚡ Quick Setup
@@ -102,20 +103,24 @@ docker-compose ps
 
 4. **Install Development Dependencies**
 ```bash
+# Install UV for Python package management
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.cargo/env
+
 # Bot dependencies
 cd bot
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate   # Windows
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+uv venv
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
 
 # API dependencies
 cd ../api
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt
 
 # Dashboard dependencies
 cd ../dashboard
@@ -126,11 +131,11 @@ pnpm install
 
 ```bash
 # Verify bot
-cd bot && source venv/bin/activate
+cd bot && source .venv/bin/activate
 python -m pytest tests/ -v
 
 # Verify API
-cd ../api && source venv/bin/activate
+cd ../api && source .venv/bin/activate
 python -m pytest tests/ -v
 
 # Verify dashboard
@@ -293,6 +298,12 @@ class UserService:
 
 #### Quality Tools
 ```bash
+# Install tools with UV (if not already installed)
+uv tool install black
+uv tool install flake8
+uv tool install mypy
+uv tool install isort
+
 # Formatting with Black
 black src/ tests/
 
@@ -501,8 +512,8 @@ describe('ServerStats', () => {
 ```bash
 # Pre-commit testing (MANDATORY!)
 # Backend
-cd bot && python -m pytest tests/ -v --cov=src
-cd api && python -m pytest tests/ -v --cov=src
+cd bot && source .venv/bin/activate && python -m pytest tests/ -v --cov=src
+cd api && source .venv/bin/activate && python -m pytest tests/ -v --cov=src
 
 # Frontend
 cd dashboard && pnpm test

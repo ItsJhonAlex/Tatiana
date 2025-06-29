@@ -17,11 +17,14 @@ docker-compose logs -f
 
 ### Python
 ```bash
+# Install UV package manager (if not installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Bot dependencies
-cd bot && pip install -r requirements.txt
+cd bot && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt
 
 # API dependencies  
-cd api && pip install -r requirements.txt
+cd api && uv venv && source .venv/bin/activate && uv pip install -r requirements.txt
 ```
 
 ### Node.js
@@ -29,8 +32,7 @@ cd api && pip install -r requirements.txt
 # Dashboard dependencies (preferred)
 cd dashboard && pnpm install
 
-# Alternative with npm
-cd dashboard && npm install
+# Note: Use Node.js 22 LTS for best compatibility
 ```
 
 ## 🐳 Docker Operations
@@ -68,8 +70,8 @@ cd bot && alembic upgrade head
 ## 🧪 Testing
 
 ```bash
-# Python tests
-python -m pytest
+# Python tests (activate venv first)
+source .venv/bin/activate && python -m pytest
 
 # Node.js tests
 cd dashboard && pnpm test
@@ -83,14 +85,14 @@ cd dashboard && pnpm test:e2e
 ### Bot
 ```bash
 cd bot
-source venv/bin/activate
+source .venv/bin/activate
 python main.py
 ```
 
 ### API
 ```bash
 cd api
-source venv/bin/activate
+source .venv/bin/activate
 uvicorn main:app --reload
 ```
 

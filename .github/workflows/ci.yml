@@ -7,8 +7,8 @@ on:
     branches: [ main, develop ]
 
 env:
-  PYTHON_VERSION: '3.12'
-  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.13.4'
+  NODE_VERSION: '22'
 
 jobs:
   # 🧪 Python Backend Testing
@@ -18,7 +18,7 @@ jobs:
     
     services:
       postgres:
-        image: postgres:15
+        image: postgres:17
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: tatiana_test
@@ -31,7 +31,7 @@ jobs:
           - 5432:5432
           
       redis:
-        image: redis:7-alpine
+        image: redis:8-alpine
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -50,7 +50,7 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
         
     - name: 📦 Cache pip dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v3
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
@@ -61,9 +61,12 @@ jobs:
     - name: 🤖 Install bot dependencies
       run: |
         cd bot
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        uv venv
+        source .venv/bin/activate
+        uv pip install -r requirements.txt
+        uv pip install -r requirements-dev.txt
         
     - name: 🧪 Run bot tests
       run: |
@@ -77,9 +80,12 @@ jobs:
     - name: 🌐 Install API dependencies
       run: |
         cd api
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        uv venv
+        source .venv/bin/activate
+        uv pip install -r requirements.txt
+        uv pip install -r requirements-dev.txt
         
     - name: 🧪 Run API tests
       run: |
@@ -91,7 +97,7 @@ jobs:
         JWT_SECRET: test-secret-key
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v3
       with:
         files: ./bot/coverage.xml,./api/coverage.xml
         flags: backend
@@ -110,8 +116,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: dashboard/package-lock.json
+        cache: 'pnpm'
+        cache-dependency-path: dashboard/pnpm-lock.yaml
         
     - name: 📦 Install pnpm
       run: npm install -g pnpm
@@ -142,7 +148,7 @@ jobs:
         pnpm build
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v3
       with:
         files: ./dashboard/coverage/lcov.info
         flags: frontend
@@ -164,8 +170,14 @@ jobs:
         
     - name: 📦 Install Python quality tools
       run: |
-        python -m pip install --upgrade pip
-        pip install black flake8 isort mypy bandit safety
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.cargo/env
+        uv tool install black
+        uv tool install flake8
+        uv tool install isort
+        uv tool install mypy
+        uv tool install bandit
+        uv tool install safety
         
     - name: 🎨 Check Black formatting
       run: |
@@ -185,7 +197,7 @@ jobs:
         safety check --json --output safety-report.json || true
         
     - name: 📊 Upload security reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       if: always()
       with:
         name: security-reports
@@ -207,7 +219,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
       
     - name: 🤖 Build bot image
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v5
       with:
         context: ./bot
         file: ./bot/Dockerfile.dev
@@ -217,7 +229,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 🌐 Build API image  
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v5
       with:
         context: ./api
         file: ./api/Dockerfile.dev
@@ -227,7 +239,7 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: 💻 Build dashboard image
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v5
       with:
         context: ./dashboard
         file: ./dashboard/Dockerfile.dev
