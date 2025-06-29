@@ -91,7 +91,7 @@ jobs:
         JWT_SECRET: test-secret-key
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         files: ./bot/coverage.xml,./api/coverage.xml
         flags: backend
@@ -142,7 +142,7 @@ jobs:
         pnpm build
         
     - name: 📊 Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
         files: ./dashboard/coverage/lcov.info
         flags: frontend
